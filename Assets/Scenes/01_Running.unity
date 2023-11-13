@@ -896,8 +896,10 @@ MonoBehaviour:
   dino: {fileID: 7604973511313407296, guid: a244cf97b4cc0024381fc6ccd5aaac7b, type: 3}
   objs: {fileID: 2435593610772425280, guid: c53e2d076b518714ba388764ce81cb49, type: 3}
   gamezone: {fileID: 644575083}
-  pausePnl: {fileID: 6150442035529601738, guid: 533fe8ed4bfc7ad4d98c2e1040c80c6d, type: 3}
+  pausePnl: {fileID: 6693452486191186114, guid: 533fe8ed4bfc7ad4d98c2e1040c80c6d, type: 3}
   currentTimeSurvive: {fileID: 317986720}
+  curretScore: {fileID: 1677692943}
+  currentLevel: {fileID: 1594589025}
   objImage:
   - {fileID: 21300000, guid: 99ab05be2487a8c48a9f879e97f0db36, type: 3}
   - {fileID: 21300000, guid: 4b1b447774bb5af4a81d51166e64007f, type: 3}
@@ -1665,6 +1667,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507645355}
   m_CullTransparentMesh: 1
+--- !u!114 &1594589025 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2515785480219751215, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
+  m_PrefabInstance: {fileID: 1188268830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1610029219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2018,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2515785480219751214, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
   m_PrefabInstance: {fileID: 1677692940}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1677692943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2515785480219751215, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
+  m_PrefabInstance: {fileID: 1677692940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1755303913 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2515785480219751214, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}

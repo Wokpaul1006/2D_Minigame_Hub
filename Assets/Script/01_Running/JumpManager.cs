@@ -11,18 +11,29 @@ public class JumpManager : MonoBehaviour
     [SerializeField] Transform gamezone;
     [SerializeField] PauseSC pausePnl;
     [SerializeField] Text currentTimeSurvive;
+    [SerializeField] Text curretScore;
+    [SerializeField] Text currentLevel;
     [SerializeField] List<Sprite> objImage = new List<Sprite>();
 
     private int objImageIndex;
     private int ingameScore;
     private int timeSurvive;
+    private int curLevel;
+    private int nextLvlTarget;
     // Start is called before the first frame update
     void Start()
     {
         ingameScore = 0;
         timeSurvive = 0;
+        curLevel = 1;
+        nextLvlTarget = 10;
+
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        currentLevel.text = 1.ToString();
+        curretScore.text = 0.ToString();
 
         SpawnDino();
+        DecideNextLevelTarget();
         StartCoroutine(OnWaitToSpawnObstacle());
         StartCoroutine(CountToScore());
     }
@@ -43,8 +54,7 @@ public class JumpManager : MonoBehaviour
     public void OnJump() => dino.EnableJump();
     public void ShowPause()
     {
-        print("in show pause");
-        Instantiate(pausePnl, Vector3.zero, Quaternion.identity);
+        pausePnl.ShowPanel(true);
         StopAllCoroutines();
     }
     private IEnumerator CountToScore()
@@ -52,10 +62,22 @@ public class JumpManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         timeSurvive++;
         IncreaseInGameScore();
+        IncreaseUIScore();
+        if(ingameScore == nextLvlTarget)
+        {
+            IncreaseInGameLevel();
+            DecideNextLevelTarget();
+        }
         UpdateOnScreenSecond();
         StartCoroutine(CountToScore());
     }
     private void UpdateOnScreenSecond() => currentTimeSurvive.text = timeSurvive.ToString()+"s";
     private void IncreaseInGameScore() => ingameScore++;
+    private void IncreaseInGameLevel() => curLevel++;
+    private void IncreaseUIScore() => curretScore.text = ingameScore.ToString();
+    private void DecideNextLevelTarget()
+    {
+        nextLvlTarget = (curLevel * 10);
+    }
     public void ToHome() => SceneManager.LoadScene("00_Home");
 }

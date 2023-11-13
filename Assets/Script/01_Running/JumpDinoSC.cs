@@ -12,15 +12,11 @@ public class JumpDinoSC : MonoBehaviour
     {
         originPos = transform.position;
         allowJump = false;
-
-        //manager = gameObject.AddComponent(typeof(JumpManager)) as JumpManager;
+        manager = GameObject.Find("RunningManager").GetComponent<JumpManager>();
     }
     private void Update()
     {
-        if (allowJump == true || Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
+        if (allowJump == true || Input.GetKeyDown(KeyCode.Space)) { Jump(); }
     }
     public void EnableJump()
     {
@@ -37,6 +33,8 @@ public class JumpDinoSC : MonoBehaviour
         if(collision.gameObject.tag == "Enemies")
         {
             manager.ShowPause();
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }
