@@ -17,7 +17,7 @@ public class JumpDinoSC : MonoBehaviour
     }
     private void Update()
     {
-        if (allowJump == true)
+        if (allowJump == true || Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -36,7 +36,7 @@ public class JumpDinoSC : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemies")
         {
-            //manager.ShowPause();
+            manager.ShowPause();
         }
     }
 }

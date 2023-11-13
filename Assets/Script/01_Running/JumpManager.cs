@@ -9,15 +9,22 @@ public class JumpManager : MonoBehaviour
     [SerializeField] JumpDinoSC dino;
     [SerializeField] JumpOstacles objs;
     [SerializeField] Transform gamezone;
-    [SerializeField] GameObject pausePnl;
+    [SerializeField] PauseSC pausePnl;
+    [SerializeField] Text currentTimeSurvive;
     [SerializeField] List<Sprite> objImage = new List<Sprite>();
 
     private int objImageIndex;
+    private int ingameScore;
+    private int timeSurvive;
     // Start is called before the first frame update
     void Start()
     {
+        ingameScore = 0;
+        timeSurvive = 0;
+
         SpawnDino();
         StartCoroutine(OnWaitToSpawnObstacle());
+        StartCoroutine(CountToScore());
     }
 
     private void SpawnDino() => dino = Instantiate(dino, gamezone.parent);
@@ -36,11 +43,19 @@ public class JumpManager : MonoBehaviour
     public void OnJump() => dino.EnableJump();
     public void ShowPause()
     {
-        pausePnl = Instantiate(pausePnl);
+        print("in show pause");
+        Instantiate(pausePnl, Vector3.zero, Quaternion.identity);
         StopAllCoroutines();
     }
-    public void ToHome()
+    private IEnumerator CountToScore()
     {
-        SceneManager.LoadScene("00_Home");
+        yield return new WaitForSeconds(1);
+        timeSurvive++;
+        IncreaseInGameScore();
+        UpdateOnScreenSecond();
+        StartCoroutine(CountToScore());
     }
+    private void UpdateOnScreenSecond() => currentTimeSurvive.text = timeSurvive.ToString()+"s";
+    private void IncreaseInGameScore() => ingameScore++;
+    public void ToHome() => SceneManager.LoadScene("00_Home");
 }

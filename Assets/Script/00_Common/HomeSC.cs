@@ -13,16 +13,12 @@ public class HomeSC : MonoBehaviour
     [SerializeField] Slider loadSlide;
 
     [Header("Variables")]
-    private float loadSpd;
+    private float loadSpd = 1f;
 
     private void Start()
     {
         SetupStart();
-        RunLoad();
-    }
-    private void Update()
-    {
-        
+        StartCoroutine(RunLoad());
     }
 
     #region Common Zone
@@ -30,14 +26,16 @@ public class HomeSC : MonoBehaviour
     {
         loadSlide.value = 0;
     }
-    void RunLoad()
+    IEnumerator RunLoad()
     {
         if(loadSlide.value >= 1)
         {
             ShowObject(loadPnl.gameObject, false);
             ShowObject(homePnl, true);
         }
+        yield return new WaitForSeconds(0.1f);
         loadSlide.value += loadSpd * Time.deltaTime;
+        StartCoroutine(RunLoad());
     }
     void ShowObject(GameObject objToShow, bool show) => objToShow.SetActive(show);
     #endregion
