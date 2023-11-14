@@ -8,35 +8,39 @@ public class SpawnerSC : MonoBehaviour
     private int _moveDir;
     private float _moveSpd;
     public bool _readySpawn;
-    void Start()
-    {
-        SetUpStart();
-    }
+    void Start() => SetUpStart();
     void SetUpStart() => _moveDir = 0;
-    void Update()
-    {
-        Movementation();
-    }
+    void Update() => Movementation();
     private void Movementation()
     {
+        //This function allow the spawner move linear
         if(_moveDir == -1 || _moveDir == 0)
         {
-            transform.position += new Vector3(-1 * Time.deltaTime * _moveSpd, 0, 0);
+            transform.position += new Vector3(-1  * _moveSpd, 0, 0);
         }else if(_moveDir == 1) 
         {
-            transform.position += new Vector3(1 * Time.deltaTime * _moveSpd, 0, 0);
-        }        
+            transform.position += new Vector3(1  * _moveSpd, 0, 0);
+        }
     }
-    public void SpeedUp(float level)
+    public void SpeedUp(float level) 
     {
-        _moveSpd = level * 2;
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
+        //This function allow Spawner increase it's speed
+        if (level == 1)
+        {
+            _moveSpd = level;
+        }else if(level > 1)
+        {
+            _moveSpd = (level * 2)/2; 
+        }
+    } 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "LEdge")
+        //This function allow spawner to change direction
+        if (collision.gameObject.tag == "LEdge")
         {
             _moveDir = 1;
-        }else if(collision.gameObject.tag == "REdge")
+        }
+        else if (collision.gameObject.tag == "REdge")
         {
             _moveDir = -1;
         }

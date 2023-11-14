@@ -7,9 +7,18 @@ using UnityEngine.SceneManagement;
 public class PopFruitsManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> fruits = new List<GameObject>();
+    [SerializeField] PauseSC pausePnl;
+    
     [SerializeField] SpawnerSC spawner;
-    [SerializeField] Transform parentCanvas;
-    [SerializeField] Text scoreTxt, lvlTxt;
+
+    [SerializeField] Transform parent;
+
+    [SerializeField] Text scoreTxt;
+    [SerializeField] Text lvlTxt;
+    [SerializeField] Text lostFruits;
+
+    [HideInInspector]
+    public int missedFruits;
 
     private int rand, level, countSeconds, lvlMilestone, curScore;
     private float timeToSpawn;
@@ -19,39 +28,35 @@ public class PopFruitsManager : MonoBehaviour
         SetUpStart();
         StartCoroutine(CountingClock());
     }
-
-    public void IncreaseScore()
+    private void UpdateTextScore()
     {
-        curScore++;
         scoreTxt.text = curScore.ToString();
     }
-
+    private void UpdateMissFruitText()
+    {
+        lostFruits.text = missedFruits.ToString();
+    }
     void SetUpStart()
     {
         level = 1;
-        timeToSpawn = 1;
+        timeToSpawn = 10;
         lvlMilestone = 10;
         curScore = 0;
         spawner.SpeedUp(level);
 
-        scoreTxt.text = curScore.ToString();
         lvlTxt.text = level.ToString();
-    }
+        UpdateTextScore();
+        UpdateMissFruitText();
 
-    private void RandFruitToSpawn()
-    {
-        rand = Random.Range(0, fruits.Count);
+        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
-
-    private void GetSpawnerPos()
-    {
-        spawnerTrans = spawner.transform.position;
-    }
+    private void RandFruitToSpawn() => rand = Random.Range(0, fruits.Count);
+    private void GetSpawnerPos() => spawnerTrans = spawner.transform.position;
     private void OnSpawnFruits()
     {
         RandFruitToSpawn();
         GetSpawnerPos();
-        Instantiate(fruits[rand], spawnerTrans, Quaternion.identity, parentCanvas);
+        Instantiate(fruits[rand], spawnerTrans, Quaternion.identity, parent);
     }
     private IEnumerator CountingClock()
     {
@@ -62,25 +67,39 @@ public class PopFruitsManager : MonoBehaviour
             lvlMilestone = countSeconds + 10;
             OnLevelUp();
         }
-        WaitToSpawn(timeToSpawn);
+        StartCoroutine(WaitoSpawn(timeToSpawn));
         StartCoroutine(CountingClock());
     }
-    private void WaitToSpawn(float waitTime)
+    IEnumerator WaitoSpawn(float waitTime)
     {
+        yield return new WaitForSeconds(waitTime);
         OnSpawnFruits();
-        Invoke("WaitToSpawn", waitTime);
     }
     private void OnLevelUp()
     {
         level++;
-        timeToSpawn = timeToSpawn / 10f;
+        timeToSpawn = (timeToSpawn * level)/10;
         spawner.SpeedUp(level);
 
         lvlTxt.text = level.ToString();
     }
-
-    public void BackHome()
+    public void CountMiss()
     {
-        SceneManager.LoadScene("00_Home");
+        missedFruits++;
+        UpdateMissFruitText();
+        if(missedFruits >= 10)
+        {
+            //pausePnl.ShowPanel(true);
+        }
+    }
+    public void CountSocre() 
+    {
+        print("coutn score");
+        curScore++;
+        UpdateTextScore(); 
+    }
+    public void CounTest()
+    {
+        print("test");
     }
 }
