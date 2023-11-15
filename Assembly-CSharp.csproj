@@ -62,7 +62,6 @@
     <Compile Include="Assets\Script\00_Common\PauseSC.cs" />
     <Compile Include="Assets\Script\00_Common\Singleton.cs" />
     <Compile Include="Assets\Script\02_PopFruits\SpawnerSC.cs" />
-    <Compile Include="Assets\test.cs" />
     <Compile Include="Assets\Script\00_Common\HomeSC.cs" />
     <Compile Include="Assets\Script\01_Running\JumpDinoSC.cs" />
     <Compile Include="Assets\Script\01_Running\JumpOstacles.cs" />

@@ -13,19 +13,19 @@ public class HomeSC : MonoBehaviour
     [SerializeField] Slider loadSlide;
 
     [Header("Variables")]
-    private float loadSpd = 1f;
+    private float loadSpd = 0.0000001f;
 
     private void Start()
     {
         SetupStart();
         StartCoroutine(RunLoad());
     }
-
-    #region Common Zone
     void SetupStart()
     {
         loadSlide.value = 0;
     }
+
+    #region Loading Zone
     IEnumerator RunLoad()
     {
         if(loadSlide.value >= 1)
@@ -38,6 +38,10 @@ public class HomeSC : MonoBehaviour
         StartCoroutine(RunLoad());
     }
     void ShowObject(GameObject objToShow, bool show) => objToShow.SetActive(show);
+    #endregion
+
+    #region Menu Zone
+
     #endregion
 
     #region Change panel
