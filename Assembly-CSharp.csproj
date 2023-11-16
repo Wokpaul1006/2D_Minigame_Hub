@@ -58,13 +58,15 @@
     <Analyzer Include="D:\Unity\Editor\2022.3.10f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Common\Singleton.cs" />
     <Compile Include="Assets\Script\01_Running\JumpManager.cs" />
-    <Compile Include="Assets\Script\00_Common\PauseSC.cs" />
-    <Compile Include="Assets\Script\00_Common\Singleton.cs" />
     <Compile Include="Assets\Script\02_PopFruits\SpawnerSC.cs" />
-    <Compile Include="Assets\Script\00_Common\HomeSC.cs" />
+    <Compile Include="Assets\Script\00_Loading\LoadSC.cs" />
+    <Compile Include="Assets\Script\Common\SceneSC.cs" />
+    <Compile Include="Assets\Script\00_MainMenu\PauseSC.cs" />
     <Compile Include="Assets\Script\01_Running\JumpDinoSC.cs" />
     <Compile Include="Assets\Script\01_Running\JumpOstacles.cs" />
+    <Compile Include="Assets\Script\00_MainMenu\HomeSC.cs" />
     <Compile Include="Assets\Script\02_PopFruits\PopFruitsManager.cs" />
     <Compile Include="Assets\Script\02_PopFruits\FruitsSC.cs" />
   </ItemGroup>
