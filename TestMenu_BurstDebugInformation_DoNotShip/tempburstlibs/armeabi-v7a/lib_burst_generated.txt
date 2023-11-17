@@ -21,7 +21,6 @@ Library: D:\Workplace\2DCasualPlatform\Temp\BurstOutput\tempburstlibs\armeabi-v7
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
 --assembly-defines=Unity.InternalAPIEngineBridge.001;
 --assembly-defines=Unity.Mathematics;
---assembly-defines=Unity.Timeline;
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\Workplace\2DCasualPlatform\Temp\Burst
