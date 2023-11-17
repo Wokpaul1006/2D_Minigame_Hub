@@ -20,7 +20,11 @@ public class HomeSC : MonoBehaviour
     [SerializeField] Text totalScoreText;
     [SerializeField] Text highestLevelText;
     [SerializeField] Text highestScoreText;
-  
+
+    [HideInInspector] int butActionState;
+    //0 = show List game; 1 = show Menu
+    [HideInInspector] int menuSubState;
+    //0 = invisible; 1 = credits; 2 = option; 3 = information
     private void Start()
     {
         SettingStart();
@@ -28,8 +32,10 @@ public class HomeSC : MonoBehaviour
     }
     private void SettingStart()
     {
-        //pause = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        pause = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
         listGamePanel.SetActive(true);
+        butActionState = 0;
+        menuSubState = 0; 
     }
 
     #region Common Section
@@ -59,23 +65,52 @@ public class HomeSC : MonoBehaviour
     }
     public void SwitchPanel() 
     {
-        print(listGamePanel.activeSelf);
-        if (listGamePanel.activeSelf == true)
+        if(butActionState == 0)
         {
-            print("in unshow listgame");
-            //Active/Deactive Panels
+            //Case of show menu
+            butActionState = 1;
+            buttonAction.GetComponent<Image>().sprite = actionButtonSprite[1];
+
             menuPanel.SetActive(true);
             listGamePanel.SetActive(false);
-
-            buttonAction.GetComponent<Image>().sprite = actionButtonSprite[0];
         }
-        else if (menuPanel.activeSelf == true)
+        else if(butActionState == 1) 
         {
-            //Active/Deactive Panels
+            //Case of show list game
+            butActionState = 0;
+            buttonAction.GetComponent<Image>().sprite = actionButtonSprite[0];
+
             menuPanel.SetActive(false);
             listGamePanel.SetActive(true);
+        }
+    }
+    #endregion
 
-            buttonAction.GetComponent<Image>().sprite = actionButtonSprite[1];
+    #region Inside Menu Switch Panels
+    public void OnShowCredits()
+    {
+        menuSubState = 1;
+        HandlePanelVisible();
+    }
+    public void OnShowOption()
+    {
+        menuSubState = 2;
+        HandlePanelVisible();
+    }
+    public void OnShowInfor()
+    {
+        menuSubState = 3;
+        HandlePanelVisible();
+    }
+    private void HandlePanelVisible()
+    {
+        subPanel[menuSubState].SetActive(true);
+        for(int i = 0; i< menuSubState; i++) 
+        {
+            if(i != menuSubState)
+            {
+                subPanel[i].SetActive(false);
+            }
         }
     }
     #endregion
