@@ -18,6 +18,7 @@ public class SceneSC
                 SceneManager.LoadScene("01_Home");
                 break;
             case 2:
+                Debug.Log("in call jump dino scene");
                 SceneManager.LoadScene("02_Jump");
                 break;
             case 3:

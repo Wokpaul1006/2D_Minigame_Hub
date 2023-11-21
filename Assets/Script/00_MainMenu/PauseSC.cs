@@ -8,11 +8,16 @@ public class PauseSC : Singleton<PauseSC>
 {
     [SerializeField] string sceneName;
     [SerializeField] GameObject visiblePanel;
+    [SerializeField] SceneSC sceneMN = new SceneSC();
     private void Start()
     {
         ShowPanel(false);
     }
-    public void ToHome() { SceneManager.LoadScene("00_Home"); ShowPanel(false); }
+    public void ToHome() 
+    {
+        sceneMN.LoadScene(1, true);
+        ShowPanel(false); 
+    }
     public void Restart()
     {
         GetCurrentScen();

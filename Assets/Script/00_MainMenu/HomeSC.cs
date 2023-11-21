@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,7 +25,7 @@ public class HomeSC : MonoBehaviour
     [HideInInspector] int butActionState;
     //0 = show List game; 1 = show Menu
     [HideInInspector] int menuSubState;
-    //0 = invisible; 1 = credits; 2 = option; 3 = information
+    //3 = invisible; 0 = credits; 1 = option; 2 = information
     private void Start()
     {
         SettingStart();
@@ -89,17 +90,17 @@ public class HomeSC : MonoBehaviour
     #region Inside Menu Switch Panels
     public void OnShowCredits()
     {
-        menuSubState = 1;
+        menuSubState = 0;
         HandlePanelVisible();
     }
     public void OnShowOption()
     {
-        menuSubState = 2;
+        menuSubState = 1;
         HandlePanelVisible();
     }
     public void OnShowInfor()
     {
-        menuSubState = 3;
+        menuSubState = 2;
         HandlePanelVisible();
     }
     private void HandlePanelVisible()
@@ -110,6 +111,7 @@ public class HomeSC : MonoBehaviour
             if(i != menuSubState)
             {
                 subPanel[i].SetActive(false);
+                butActionState = 1;
             }
         }
     }
