@@ -18,7 +18,10 @@ EditorBuildSettings:
     path: Assets/Scenes/03_Pop.unity
     guid: ab9954301d442ec478f7f40b7ea0c4ca
   - enabled: 1
-    path: Assets/Scenes/04_Mazing.unity
+    path: Assets/Scenes/04_Utopia.unity
+    guid: daab149d81a5e774cbc0069a591a285e
+  - enabled: 1
+    path: Assets/Scenes/05_Mazing.unity
     guid: bd48429af3c49b94bb54edcd86954332
   - enabled: 1
     path: Assets/Scenes/06_Cross.unity
