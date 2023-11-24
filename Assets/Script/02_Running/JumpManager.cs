@@ -6,17 +6,23 @@ using UnityEngine.UI;
 
 public class JumpManager : MonoBehaviour
 {
+    //No. of Game" #01
+    //Rule:
+    //Player jump to avoid obstacles, ì hit obstacle, game end.
+
+
+    //Common Zone
+    [HideInInspector] SceneSC sceneMN = new SceneSC();
+    [HideInInspector] PauseSC pausePnl;
+    [SerializeField] Text curretScore;
+    [SerializeField] Text currentLevel;
+
+    //Sepcific Zone
     [SerializeField] JumpDinoSC dino;
     [SerializeField] JumpOstacles objs;
     [SerializeField] Transform gamezone;
     [SerializeField] List<Sprite> objImage = new List<Sprite>();
-
     [SerializeField] Text currentTimeSurvive;
-    [SerializeField] Text curretScore;
-    [SerializeField] Text currentLevel;
-
-    [HideInInspector] SceneSC sceneMN = new SceneSC();
-    [HideInInspector] PauseSC pausePnl;
 
     private int objImageIndex;
     private int ingameScore;

@@ -6,20 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class PopFruitsManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> fruits = new List<GameObject>();
+    //No. of Game" #02
+    //Rule:
+    //Player pop the fruit fall from the spawner, if miss more tha 5 fruist, game end.
+
+    //Common zone
     [HideInInspector] SceneSC sceneMN = new SceneSC();
     [HideInInspector] PauseSC pausePnl;
-    
-    [SerializeField] SpawnerSC spawner;
-
-    [SerializeField] Transform parent;
-
     [SerializeField] Text scoreTxt;
     [SerializeField] Text lvlTxt;
-    [SerializeField] Text lostFruits;
 
-    [HideInInspector]
-    public int missedFruits;
+    //Specific Zone
+    [SerializeField] SpawnerSC spawner;
+    [SerializeField] Transform parent;
+    [SerializeField] Text lostFruits;
+    [SerializeField] List<GameObject> fruits = new List<GameObject>();
+    [HideInInspector] public int missedFruits;
 
     private int rand, level, countSeconds, lvlMilestone, curScore;
     private float timeToSpawn;
@@ -28,6 +30,8 @@ public class PopFruitsManager : MonoBehaviour
     {
         SetUpStart();
         StartCoroutine(CountingClock());
+
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     private void UpdateTextScore()
     {
