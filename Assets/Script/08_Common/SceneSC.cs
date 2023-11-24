@@ -18,17 +18,16 @@ public class SceneSC
                 SceneManager.LoadScene("01_Home");
                 break;
             case 2:
-                Debug.Log("in call jump dino scene");
                 SceneManager.LoadScene("02_Jump");
                 break;
             case 3:
                 SceneManager.LoadScene("03_Pop");
                 break;
             case 4:
-                SceneManager.LoadScene("04_Mazing");
+                SceneManager.LoadScene("04_Utopia");
                 break;
             case 5:
-                SceneManager.LoadScene("05_Utopia");
+                SceneManager.LoadScene("05_Mazing"); 
                 break;
             case 6:
                 SceneManager.LoadScene("06_Cross");

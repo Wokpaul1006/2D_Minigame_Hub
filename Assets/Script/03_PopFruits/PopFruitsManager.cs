@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class PopFruitsManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> fruits = new List<GameObject>();
-    [SerializeField] PauseSC pausePnl;
+    [HideInInspector] SceneSC sceneMN = new SceneSC();
+    [HideInInspector] PauseSC pausePnl;
     
     [SerializeField] SpawnerSC spawner;
 
@@ -48,7 +49,7 @@ public class PopFruitsManager : MonoBehaviour
         UpdateTextScore();
         UpdateMissFruitText();
 
-        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     private void RandFruitToSpawn() => rand = Random.Range(0, fruits.Count);
     private void GetSpawnerPos() => spawnerTrans = spawner.transform.position;
@@ -102,4 +103,6 @@ public class PopFruitsManager : MonoBehaviour
     {
         print("test");
     }
+
+    public void ToHome() => sceneMN.LoadScene(1, true);
 }

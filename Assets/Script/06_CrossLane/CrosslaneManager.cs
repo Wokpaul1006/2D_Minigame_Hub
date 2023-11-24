@@ -5,7 +5,7 @@ using UnityEngine;
 public class CrosslaneManager : MonoBehaviour
 {
     [SerializeField] GameObject playerSpawner;
-
+    [HideInInspector] SceneSC sceneMN = new SceneSC();
 
     // Start is called before the first frame update
     void Start()
@@ -18,4 +18,6 @@ public class CrosslaneManager : MonoBehaviour
     {
         
     }
+
+    public void ToHome() => sceneMN.LoadScene(1, true);
 }

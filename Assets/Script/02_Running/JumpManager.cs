@@ -9,11 +9,14 @@ public class JumpManager : MonoBehaviour
     [SerializeField] JumpDinoSC dino;
     [SerializeField] JumpOstacles objs;
     [SerializeField] Transform gamezone;
-    [SerializeField] PauseSC pausePnl;
+    [SerializeField] List<Sprite> objImage = new List<Sprite>();
+
     [SerializeField] Text currentTimeSurvive;
     [SerializeField] Text curretScore;
     [SerializeField] Text currentLevel;
-    [SerializeField] List<Sprite> objImage = new List<Sprite>();
+
+    [HideInInspector] SceneSC sceneMN = new SceneSC();
+    [HideInInspector] PauseSC pausePnl;
 
     private int objImageIndex;
     private int ingameScore;
@@ -79,5 +82,5 @@ public class JumpManager : MonoBehaviour
     {
         nextLvlTarget = (curLevel * 10);
     }
-    public void ToHome() => SceneManager.LoadScene("00_Home");
+    public void ToHome() => sceneMN.LoadScene(1, true);
 }
