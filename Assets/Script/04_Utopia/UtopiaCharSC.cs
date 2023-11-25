@@ -10,10 +10,14 @@ public class UtopiaCharSC : MonoBehaviour
     [HideInInspector] Vector3 middlePos; //position of middle jump period
     [HideInInspector] Vector3 targetPos; //target pos of character, this pos equal originPos every new step
     public bool isJump;
+    private bool allowFor
+    private float jumpSpd;
+    private float moveSpd;
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        jumpSpd = 5f;
+        moveSpd = 2f;
         SettingStart();
     }
     void SettingStart()
@@ -30,7 +34,10 @@ public class UtopiaCharSC : MonoBehaviour
     }
     private void CharJump()
     {
-        transform.position = targetPos;
+        //transform.position = targetPos;
+        print(transform.forward);
+        rb.AddForce(transform.up * jumpSpd, ForceMode2D.Impulse);
+        //rb.AddForce(transform.forward * moveSpd, ForceMode2D.Force);
         isJump = false;
     }
     private void UpdateCharPos()
@@ -39,8 +46,8 @@ public class UtopiaCharSC : MonoBehaviour
         originPos = targetPos;
     }
     public void CaculatingNewTargetPos(Vector3 newPos) => targetPos = newPos;
-    private void CaculatingMidPos()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if(collision == )
     }
 }

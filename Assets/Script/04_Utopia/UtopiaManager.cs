@@ -64,7 +64,16 @@ public class UtopiaManager : MonoBehaviour
         RandSpawnStep();
         RandPosStepSpawn();
 
-        Instantiate(stepList[randStepOder], new Vector2(randStepX, randStepY), Quaternion.identity);
+        int temp = randStepOder % 2;
+        if (temp == 1)
+        {
+            Instantiate(stepList[randStepOder], new Vector2(randStepX + 0.25f, randStepY), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(stepList[randStepOder], new Vector2(randStepX - 0.25f, randStepY), Quaternion.identity);
+        }
+        
     }
     private void RandSpawnStep() => randStepOder = Random.Range(0, 3);
     private void RandPosStepSpawn()
@@ -79,7 +88,7 @@ public class UtopiaManager : MonoBehaviour
         }else if(gameplayDir == 1)
         {
             randStepX -= 0.5f;
-            if (gameplayDir == -2f)
+            if (randStepX == -2f)
             {
                 gameplayDir = 0;
             }
@@ -94,9 +103,11 @@ public class UtopiaManager : MonoBehaviour
     {
         character.isJump = true;
         DecideStepSpawn();
+
+        SettingNewTargetPos();
     }
     private void SettingNewTargetPos()
     {
-        character.CaculatingNewTargetPos(nextStepPos);
+        character.CaculatingNewTargetPos(new Vector3(nextStepPos.x - 0.25f, nextStepPos.y, 0));
     }
 }

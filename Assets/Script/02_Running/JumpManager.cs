@@ -60,7 +60,7 @@ public class JumpManager : MonoBehaviour
         Instantiate(objs, gamezone.parent);
         objs.SetApparance(objImage[objImageIndex]);
     }
-    public void OnJump() => dino.EnableJump();
+    public void OnJump() => dino.allowJump = true;
     public void ShowPause()
     {
         pausePnl.ShowPanel(true);
