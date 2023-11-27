@@ -14,40 +14,50 @@ public class UtopiaManager : MonoBehaviour
     //Common zone
     [SerializeField] Text curretScore;
     [SerializeField] Text currentLevel;
+    [SerializeField] Text startCoundownTxt;
     [HideInInspector] SceneSC sceneMN = new SceneSC();
     [HideInInspector] PauseSC pausePnl;
 
     //Specific zone
     [SerializeField] List<GameObject> stepList = new List<GameObject>();
     [SerializeField] UtopiaCharSC character;
-    [HideInInspector] Vector3 startPos = new Vector3(-1,0, 0);
+    [SerializeField] GameObject coundonwPanel;
+    [SerializeField] GameObject theTide;
+    [HideInInspector] Vector3 startPos = new Vector3(-2,0, 0);
     [HideInInspector] Vector3 nextStepPos;
 
-    private int gameState; //Show state of the game. 0 is idle, 1 is in-play
+    private int gameState; //Show state of the game. 0 is idle, 1 is in-play, 2 is end
     private int baseScore = 0;
     private int baseLevel = 1;
     private int gameplayDir; //Direction of both stepfoot and player. 0 = head 2, 1 = head -2
+    private int playerDir;
     private int randStepOder; //Random oder of footstep in the list
     private float randStepX, randStepY;
+    private int coundownNumber;
     void Start()
     {
         SettingStart();
         HandleUIs();
-
-        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        if(coundownNumber == 5 && coundownNumber >= 0)
+        {
+            StartCoroutine(StartCoundown());
+        }else if(coundownNumber == 0 || coundownNumber <= 0)
+        {
+            StopCoroutine(StartCoundown());
+        }
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     private void SettingStart()
     {
-        gameState = 0;
+        UpdateGameState(0);//Idle
         baseScore = 0;
         baseLevel = 0;
-
+        coundownNumber = 5;
         randStepY = -3;
         randStepX = 0;
 
         gameplayDir = 0;
-        DecideStepSpawn();
-        SpawnPlayer();
+        playerDir = 0;
     }
 
     #region Internal Handle
@@ -55,6 +65,22 @@ public class UtopiaManager : MonoBehaviour
     {
         curretScore.text = baseScore.ToString();
         currentLevel.text = baseLevel.ToString();
+        startCoundownTxt.text = coundownNumber.ToString();
+    }
+    private IEnumerator StartCoundown()
+    {
+        yield return new WaitForSeconds(1);
+        coundownNumber--;
+        startCoundownTxt.text = coundownNumber.ToString();
+        if (coundownNumber <= 0)
+        {
+            coundonwPanel.SetActive(false);
+            UpdateGameState(1);
+            character.DecidePlayeState(1);
+            DecideStepSpawn();
+            StartCoroutine(RisingTide());
+        }
+        StartCoroutine(StartCoundown());
     }
     #endregion
 
@@ -65,13 +91,13 @@ public class UtopiaManager : MonoBehaviour
         RandPosStepSpawn();
 
         int temp = randStepOder % 2;
-        if (temp == 1)
+        if (temp == 1.25f)
         {
-            Instantiate(stepList[randStepOder], new Vector2(randStepX + 0.25f, randStepY), Quaternion.identity);
+            Instantiate(stepList[randStepOder], new Vector2(randStepX + 2f, randStepY), Quaternion.identity);
         }
         else
         {
-            Instantiate(stepList[randStepOder], new Vector2(randStepX - 0.25f, randStepY), Quaternion.identity);
+            Instantiate(stepList[randStepOder], new Vector2(randStepX - 2f, randStepY), Quaternion.identity);
         }
         
     }
@@ -91,12 +117,18 @@ public class UtopiaManager : MonoBehaviour
             if (randStepX == -2f)
             {
                 gameplayDir = 0;
+
             }
         }
-        randStepY += 0.5f;
+        randStepY += 0.75f;
         nextStepPos = new Vector3(randStepX, randStepY, 0);
-    }    
-    private void SpawnPlayer() => character = Instantiate(character, startPos, Quaternion.identity);
+    }
+    private IEnumerator RisingTide()
+    {
+        yield return new WaitForSeconds(1);
+        theTide.transform.position += new Vector3(0,0.1f,0);
+        StartCoroutine(RisingTide());
+    }
     #endregion
     public void ToHome() => sceneMN.LoadScene(1, true);
     public void OnJump()
@@ -106,8 +138,27 @@ public class UtopiaManager : MonoBehaviour
 
         SettingNewTargetPos();
     }
-    private void SettingNewTargetPos()
+    public void OnChangeDir() 
     {
-        character.CaculatingNewTargetPos(new Vector3(nextStepPos.x - 0.25f, nextStepPos.y, 0));
+        if(playerDir == 0)
+        {
+            playerDir = 1;
+            character.CharDirAjuts(playerDir);
+        }
+        else if(playerDir == 1)
+        {
+            playerDir = 0;
+            character.CharDirAjuts(playerDir);
+        }
+    }
+    private void SettingNewTargetPos() => character.CaculatingNewTargetPos(new Vector3(nextStepPos.x - 0.25f, nextStepPos.y, 0));
+    public void UpdateGameState(int state)
+    {
+        gameState = state;
+        if(gameState == 2)
+        {
+            pausePnl.ShowPanel(true);
+            StopAllCoroutines();
+        }
     }
 }

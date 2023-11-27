@@ -419,12 +419,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
       propertyPath: m_FontData.m_MaxSize
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -545,9 +561,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1507645356}
   - {fileID: 1900127501}
   - {fileID: 1610029220}
-  - {fileID: 1507645356}
   m_Father: {fileID: 1626027716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1927,11 +1943,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
       propertyPath: m_FontData.m_MaxSize
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2118,10 +2138,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 30
-    m_Right: 30
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 50
+    m_Right: 50
+    m_Top: 30
+    m_Bottom: 30
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1

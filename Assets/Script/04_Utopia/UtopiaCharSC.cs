@@ -7,47 +7,65 @@ public class UtopiaCharSC : MonoBehaviour
 {
     [HideInInspector] Rigidbody2D rb;
     [HideInInspector] Vector3 originPos; //originPos of update every time player hit new step
-    [HideInInspector] Vector3 middlePos; //position of middle jump period
     [HideInInspector] Vector3 targetPos; //target pos of character, this pos equal originPos every new step
+    [SerializeField] UtopiaManager manager;
     public bool isJump;
-    private bool allowFor
     private float jumpSpd;
-    private float moveSpd;
+    private float forwardSpd;
+    private int playerDir;
+    private int playerState;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         jumpSpd = 5f;
-        moveSpd = 2f;
+        forwardSpd = 0.5f;
+        playerState = 0;
         SettingStart();
     }
     void SettingStart()
     {
         isJump = false;
         originPos = transform.position;
+        CharDirAjuts(0);
+        
     }
     void Update()
     {
-        if(isJump) 
+        if(playerState == 1)
         {
-            CharJump();
+            if (isJump)
+            {
+                CharJump();
+            }
+            CharForward();
         }
     }
     private void CharJump()
     {
-        //transform.position = targetPos;
-        print(transform.forward);
         rb.AddForce(transform.up * jumpSpd, ForceMode2D.Impulse);
-        //rb.AddForce(transform.forward * moveSpd, ForceMode2D.Force);
         isJump = false;
     }
-    private void UpdateCharPos()
+    private void CharForward()
     {
-        //Call every time character hit new stage
-        originPos = targetPos;
+        if(playerDir == 0)
+        {
+            //Case of move forward
+            transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * forwardSpd);
+        }else if(playerDir == 1)
+        {
+            //Case of move backward
+            transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * forwardSpd);
+        }
     }
+    public void CharDirAjuts(int dir) => playerDir = dir;
     public void CaculatingNewTargetPos(Vector3 newPos) => targetPos = newPos;
+    public void DecidePlayeState(int state) => playerState = state;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision == )
+        if(collision.gameObject.tag == "Deadline")
+        {
+            manager.UpdateGameState(2);
+        }
     }
+
 }
