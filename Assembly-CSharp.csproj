@@ -72,6 +72,7 @@
     <Compile Include="Assets\Script\02_Running\JumpDinoSC.cs" />
     <Compile Include="Assets\Script\00_Loading\LoadSC.cs" />
     <Compile Include="Assets\Script\03_PopFruits\SpawnerSC.cs" />
+    <Compile Include="Assets\Script\04_Utopia\DeadlineSC.cs" />
     <Compile Include="Assets\Script\04_Utopia\UtopiaCharSC.cs" />
     <Compile Include="Assets\Script\04_Utopia\UtopiaManager.cs" />
     <Compile Include="Assets\Script\08_Common\SceneSC.cs" />
@@ -915,6 +916,10 @@
       <HintPath>Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.AI.Navigation">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
       <Private>False</Private>
@@ -1089,6 +1094,10 @@
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.Animation.Editor">
