@@ -67,5 +67,4 @@ public class UtopiaCharSC : MonoBehaviour
             manager.UpdateGameState(2);
         }
     }
-
 }

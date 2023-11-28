@@ -2368,7 +2368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
       propertyPath: m_Text
-      value: To The Moon
+      value: MAZING OUT
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
       propertyPath: m_FontData.m_MaxSize
@@ -5206,7 +5206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
       propertyPath: m_Text
-      value: MAZE IT OUT
+      value: UTOPIA CHASER
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: faa132d30d245db46bf1fcf6928f129e, type: 3}
       propertyPath: m_FontData.m_MaxSize
@@ -6877,7 +6877,7 @@ GameObject:
   - component: {fileID: 1274141850}
   - component: {fileID: 1274141849}
   m_Layer: 5
-  m_Name: BTN_Game_ToTheMoon
+  m_Name: BTN_Game_Mazing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10142,7 +10142,7 @@ GameObject:
   - component: {fileID: 1646625525}
   - component: {fileID: 1646625524}
   m_Layer: 5
-  m_Name: BTN_Game_Mazing
+  m_Name: BTN_Game_Utopia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

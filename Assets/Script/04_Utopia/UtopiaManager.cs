@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UtopiaManager : MonoBehaviour
 {
-    //No. of Game" #03
+    //No. of Game" #04
     //Rule:
     //Player jump to reach new footstep, if fall 3 time, game end.
     //Every time player hit new footstep, plus one player score.
