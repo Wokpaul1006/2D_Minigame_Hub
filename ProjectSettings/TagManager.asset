@@ -4,14 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemies
-  - Gorund
   - Ground
   - Spawner
   - LEdge
   - REdge
-  - Car
   - Deadline
+  - Goal
+  - Obstacle
   layers:
   - Default
   - TransparentFX
