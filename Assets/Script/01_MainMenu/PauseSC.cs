@@ -15,11 +15,13 @@ public class PauseSC : Singleton<PauseSC>
     }
     public void ToHome() 
     {
+        print("back to Home");
         sceneMN.LoadScene(1, true);
         ShowPanel(false); 
     }
     public void Restart()
     {
+        print("replay scene");
         GetCurrentScen();
         SceneManager.LoadScene(sceneName);
         ShowPanel(false);

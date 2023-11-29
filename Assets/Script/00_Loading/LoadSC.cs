@@ -7,9 +7,10 @@ public class LoadSC : MonoBehaviour
 {
     [SerializeField] SceneSC sceneMN = new SceneSC();
     [SerializeField] Slider loadSlide;
+    [SerializeField] Text loadProgress;
 
     [Header("Variables")]
-    private float loadSpd = 0.0000001f;
+    private float loadSpd = 0.001f;
     void Start()
     {
         SetupStart();
@@ -17,7 +18,6 @@ public class LoadSC : MonoBehaviour
     }
     void SetupStart() 
     {
-
         loadSlide.value = 0;
     } 
     IEnumerator RunLoad()
@@ -27,7 +27,8 @@ public class LoadSC : MonoBehaviour
             sceneMN.LoadScene(1, true);
         }
         yield return new WaitForSeconds(0.1f);
-        loadSlide.value += loadSpd * Time.deltaTime;
+        loadSlide.value += loadSpd * Time.deltaTime *10;
+        loadProgress.text = Mathf.Round(loadSlide.value).ToString() + "%";
         StartCoroutine(RunLoad());
     }
 }

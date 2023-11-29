@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class JumpManager : MonoBehaviour
@@ -10,21 +11,24 @@ public class JumpManager : MonoBehaviour
     //Rule:
     //Player jump to avoid obstacles, ì hit obstacle, game end.
 
-
     //Common Zone
     [HideInInspector] SceneSC sceneMN = new SceneSC();
     [HideInInspector] PauseSC pausePnl;
     [SerializeField] Text curretScore;
     [SerializeField] Text currentLevel;
+    [SerializeField] Text startCoundownTxt;
+    [SerializeField] GameObject coundonwPanel;
+    private int coundownNumber;
 
     //Sepcific Zone
     [SerializeField] JumpDinoSC dino;
-    [SerializeField] JumpOstacles objs;
     [SerializeField] Transform gamezone;
-    [SerializeField] List<Sprite> objImage = new List<Sprite>();
+    [SerializeField] List<GameObject> listObts = new List<GameObject>();
     [SerializeField] Text currentTimeSurvive;
+    [SerializeField] GameObject obstacleSpawner;
 
-    private int objImageIndex;
+    private Vector3 spawnerPos;
+    private int objApparance;
     private int ingameScore;
     private int timeSurvive;
     private int curLevel;
@@ -36,18 +40,20 @@ public class JumpManager : MonoBehaviour
         timeSurvive = 0;
         curLevel = 1;
         nextLvlTarget = 10;
+        coundownNumber = 5;
+
+        #region Countdown Start
+        HandleCoundownStartText();
+        if (coundownNumber == 5 && coundownNumber >= 0) StartCoroutine(StartCoundown());
+        else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
+        #endregion
 
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
         currentLevel.text = 1.ToString();
         curretScore.text = 0.ToString();
-
-        SpawnDino();
-        DecideNextLevelTarget();
-        StartCoroutine(OnWaitToSpawnObstacle());
-        StartCoroutine(CountToScore());
+        spawnerPos = obstacleSpawner.transform.position;
     }
 
-    private void SpawnDino() => dino = Instantiate(dino, gamezone.parent);
     private IEnumerator OnWaitToSpawnObstacle()
     {
         yield return new WaitForSeconds(5);
@@ -56,20 +62,28 @@ public class JumpManager : MonoBehaviour
     }
     private void SpawnObstacle()
     {
-        objImageIndex = Random.Range(0, objImage.Count);
-        Instantiate(objs, gamezone.parent);
-        objs.SetApparance(objImage[objImageIndex]);
+        objApparance = Random.Range(0, listObts.Count);
+        Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
     }
-    public void OnJump() => dino.allowJump = true;
+    public void OnJump()
+    {
+        if(dino.isGrounded == true)
+        {
+            dino.isGrounded = false;
+            dino.allowJump = true;
+        }
+    }
     public void ShowPause()
     {
         pausePnl.ShowPanel(true);
         StopAllCoroutines();
     }
+    private void HandleCoundownStartText() => startCoundownTxt.text = coundownNumber.ToString();
     private IEnumerator CountToScore()
     {
         yield return new WaitForSeconds(1);
         timeSurvive++;
+        print("time to Survive: " + timeSurvive);
         IncreaseInGameScore();
         IncreaseUIScore();
         if(ingameScore == nextLvlTarget)
@@ -84,9 +98,20 @@ public class JumpManager : MonoBehaviour
     private void IncreaseInGameScore() => ingameScore++;
     private void IncreaseInGameLevel() => curLevel++;
     private void IncreaseUIScore() => curretScore.text = ingameScore.ToString();
-    private void DecideNextLevelTarget()
-    {
-        nextLvlTarget = (curLevel * 10);
-    }
+    private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 10);
     public void ToHome() => sceneMN.LoadScene(1, true);
+    private IEnumerator StartCoundown()
+    {
+        yield return new WaitForSeconds(1);
+        coundownNumber--;
+        startCoundownTxt.text = coundownNumber.ToString();
+        if (coundownNumber <= 0)
+        {
+            coundonwPanel.SetActive(false);
+            DecideNextLevelTarget();
+            StartCoroutine(OnWaitToSpawnObstacle());
+            StartCoroutine(CountToScore());
+        }
+        StartCoroutine(StartCoundown());
+    }
 }

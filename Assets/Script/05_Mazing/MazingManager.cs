@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,71 +19,177 @@ public class MazingManager : MonoBehaviour
     [HideInInspector] PauseSC pausePnl;
 
     //Specific Zone
-    [SerializeField] GameObject guidePanel;
-    [SerializeField] GameObject swipePanel;
     [SerializeField] MazingPlayerSC player;
+    [SerializeField] Text countDownTimeToEsscape;
+    [SerializeField] GameObject ground;
+    [SerializeField] GameObject border;
+    [SerializeField] GameObject goal;
+    [HideInInspector] List<GameObject> mazeElements = new List<GameObject>();
 
-    //Swiping Section
-    public const float MAX_SWIPE_TIME = 0.5f; //Longer than 0.5f is not consider as swiping
-    public const float MIN_SWIPE_DISTANCE = 0.17f;     // Factor of the screen width that we consider a swipe
-    private Vector2 starSwipePos;
-    private Vector2 currentSwipePos;
-    private int swipeDir;
-    //Variable swipeDir is direction of swipe. 0 is none, 1 is right, 2 is left, 3 is up 4 is down.
-    private float startTime;
-    //End of swiping section
+    private int charDir;
+    private int countdownVar; //This var is re-caculating everytime the game increazse level.
+    //Logic of "coundownVar is base on curent level
+    private int curLvl;
+    private int baseLvl = 1;
 
     void Start()
     {
         SettingStart();
-        OnShowPanel(guidePanel, true);
-        OnShowPanel(swipePanel, false);
+        DrawPlayGround();
     }
     void SettingStart()
     {
-        swipeDir = 0;
-        starSwipePos = Vector3.zero;
+        charDir = 0;
+        countdownVar = 0;
+        curLvl = baseLvl;
+        currentLevel.text = baseLvl.ToString();
         //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
-    private void Update()
+    private  void DrawPlayGround()
     {
-        swipeDir = 0;
-        if(Input.touchCount > 0) 
+        //Call this at start game and everytime update level
+        if(curLvl > 1)
         {
-            Touch touch = Input.GetTouch(0);
-            OnShowPanel(guidePanel, false);
-            OnShowPanel(swipePanel, true);
-            if(touch.phase == TouchPhase.Moved) 
-            {
-                Vector2 pos = touch.position;
-                currentSwipePos = pos;
-                CompareSwipe(currentSwipePos);
-            }
-        }else if(Input.touchCount == 0)
-        {
-            OnShowPanel(guidePanel, true);
-            OnShowPanel(swipePanel, false);
+            ClearMaze();
         }
+        InitCage(curLvl);
+        InitMaze(curLvl);
+        InitSpawnPoint();
+        InitGoal();
     }
     public void ToHome() => sceneMN.LoadScene(1, true);
     private void OnShowPanel(GameObject panel, bool show) => panel.SetActive(show);
-    private void CompareSwipe(Vector2 pos)
+
+    #region Handle Movement Input Events
+    public void OnClickUp()
     {
-        print(pos);
-        if(pos.x > 0)
+        charDir = 1;
+        player.CharMove(charDir);
+        charDir = 0;
+    }
+    public void OnClickDown()
+    {
+        charDir = 2;
+        player.CharMove(charDir);
+        charDir = 0;
+    }
+    public void OnClickRight()
+    {
+        charDir = 3;
+        player.CharMove(charDir);
+        charDir = 0;
+    }
+    public void OnClickLeft()
+    {
+        charDir = 4;
+        player.CharMove(charDir);
+        charDir = 0;
+    }
+    #endregion
+
+    #region Handle Draw Level
+    private void InitCage(int curLevel)
+    {
+        Vector3 startBorderPos = new Vector3(-2, 2, 0);
+        ground = Instantiate(ground, Vector3.zero, Quaternion.identity);
+        if (curLvl <= 10)
         {
-            player.CharMove(1);
-        }else if(pos.x < 0) 
-        {
-            player.CharMove(2);
+            for (int i = 0; i <= 8; i++)
+            {
+                //Draw upper border
+                if (i == 0) Instantiate(border, startBorderPos, Quaternion.identity);
+                else
+                {
+                    Instantiate(border, new Vector3(startBorderPos.x + i, 2, 0), Quaternion.identity);
+                }
+            }
+            for (int j = 0; j <= 8; j++)
+            {
+                //Draw bottom border
+                if (j == 0) Instantiate(border, new Vector3(startBorderPos.x, -2, 0), Quaternion.identity);
+                else
+                {
+                    Instantiate(border, new Vector3(startBorderPos.x + j, -2, 0), Quaternion.identity);
+                }
+            }
+            for (int k = 0; k <= 8; k++)
+            {
+                //Draw left vertical border
+                if (k == 0) Instantiate(border, startBorderPos, Quaternion.identity);
+                {
+                    Instantiate(border, new Vector3(startBorderPos.x, startBorderPos.y - k , 0), Quaternion.identity);
+                }
+            }
+            for (int l = 0; l <= 8; l++)
+            {
+                //Draw left right border
+                if (l == 0) Instantiate(border, new Vector3(2, 2, 0), Quaternion.identity);
+                else
+                {
+                    Instantiate(border, new Vector3(-(startBorderPos.x), startBorderPos.y - l, 0), Quaternion.identity);
+                }
+            }
         }
-        else if(pos.y > 0)
+        
+    }
+    private void InitSpawnPoint()
+    {
+        int randSpawnPointX, randSpawnPointY;
+        randSpawnPointX = randSpawnPointY = Random.Range(-2, 0);
+        player.transform.position = new Vector3(randSpawnPointX, randSpawnPointY, 0);
+    }
+    private void InitGoal()
+    {
+        float randSpawnPointX, randSpawnPointY;
+        randSpawnPointX = randSpawnPointY = Random.Range(-3, 3);
+        goal = Instantiate(goal,new Vector3(randSpawnPointX, randSpawnPointY, 0), Quaternion.identity);
+    }
+    private void InitMaze(int curLevel)
+    {
+        if (curLevel <= 5)
         {
-            player.CharMove(3);
+            for(int i = 0; i <= 5; i++)
+            {
+                float randSpawnPointX, randSpawnPointY;
+                randSpawnPointX = randSpawnPointY = Random.Range(-3, 3);
+                Instantiate(border, new Vector3(randSpawnPointX, randSpawnPointY, 0), Quaternion.identity);
+                mazeElements.Add(border);
+            }
         }
-        else if(pos.y < 0)
+        else if (curLevel <= 10)
         {
-            player.CharMove(4);
+
+        }
+        else if (curLevel <= 20)
+        {
+
+        }
+        else if (curLevel <= 50)
+        {
+
+        }
+        else if (curLevel >= 100)
+        {
+
         }
     }
+    private void ClearMaze()
+    {
+        Destroy(goal);
+        mazeElements.Clear();
+    }
+    #endregion
+
+    #region Handle Gameplay
+    public void LevelUp()
+    {
+        curLvl++;
+        UpdateGameplay();
+    }
+    private void UpdateGameplay()
+    {
+        DrawPlayGround();
+        currentLevel.text = curLvl.ToString();
+    }
+    #endregion
 }

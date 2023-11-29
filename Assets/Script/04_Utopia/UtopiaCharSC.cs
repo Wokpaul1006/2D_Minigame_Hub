@@ -47,14 +47,19 @@ public class UtopiaCharSC : MonoBehaviour
     }
     private void CharForward()
     {
-        if(playerDir == 0)
+        if(manager.CallbackGameState() == 1)
         {
-            //Case of move forward
-            transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * forwardSpd);
-        }else if(playerDir == 1)
-        {
-            //Case of move backward
-            transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * forwardSpd);
+            if (playerDir == 0)
+            {
+                //Case of move forward
+                transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime * forwardSpd);
+            }
+            else if (playerDir == 1)
+            {
+                //Case of move backward
+                transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * forwardSpd);
+
+            }
         }
     }
     public void CharDirAjuts(int dir) => playerDir = dir;

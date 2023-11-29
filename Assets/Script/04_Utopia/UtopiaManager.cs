@@ -17,11 +17,12 @@ public class UtopiaManager : MonoBehaviour
     [SerializeField] Text startCoundownTxt;
     [HideInInspector] SceneSC sceneMN = new SceneSC();
     [HideInInspector] PauseSC pausePnl;
+    [SerializeField] GameObject coundonwPanel;
+    private int coundownNumber;
 
     //Specific zone
     [SerializeField] List<GameObject> stepList = new List<GameObject>();
     [SerializeField] UtopiaCharSC character;
-    [SerializeField] GameObject coundonwPanel;
     [SerializeField] GameObject theTide;
     [HideInInspector] Vector3 startPos = new Vector3(-2,0, 0);
     [HideInInspector] Vector3 nextStepPos;
@@ -33,18 +34,16 @@ public class UtopiaManager : MonoBehaviour
     private int playerDir;
     private int randStepOder; //Random oder of footstep in the list
     private float randStepX, randStepY;
-    private int coundownNumber;
     void Start()
     {
         SettingStart();
         HandleUIs();
-        if(coundownNumber == 5 && coundownNumber >= 0)
-        {
-            StartCoroutine(StartCoundown());
-        }else if(coundownNumber == 0 || coundownNumber <= 0)
-        {
-            StopCoroutine(StartCoundown());
-        }
+
+        #region Countdown Start
+        if (coundownNumber == 5 && coundownNumber >= 0) StartCoroutine(StartCoundown());
+        else if(coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
+        #endregion
+
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     private void SettingStart()
@@ -127,6 +126,7 @@ public class UtopiaManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         theTide.transform.position += new Vector3(0,0.1f,0);
+        print("tide Pos: " + theTide.transform.position);
         StartCoroutine(RisingTide());
     }
     #endregion
@@ -160,5 +160,9 @@ public class UtopiaManager : MonoBehaviour
             pausePnl.ShowPanel(true);
             StopAllCoroutines();
         }
+    }
+    public int CallbackGameState()
+    {
+        return gameState;
     }
 }
