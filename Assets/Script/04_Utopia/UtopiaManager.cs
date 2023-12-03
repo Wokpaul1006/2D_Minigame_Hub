@@ -14,11 +14,12 @@ public class UtopiaManager : MonoBehaviour
     //Common zone
     [SerializeField] Text curretScore;
     [SerializeField] Text currentLevel;
-    [SerializeField] Text startCoundownTxt;
     [HideInInspector] SceneSC sceneMN = new SceneSC();
     [HideInInspector] PauseSC pausePnl;
+    [SerializeField] Text startCoundownTxt;
     [SerializeField] GameObject coundonwPanel;
     private int coundownNumber;
+    private int gameState; //Show state of the game. 0 is idle, 1 is in-play, 2 is end
 
     //Specific zone
     [SerializeField] List<GameObject> stepList = new List<GameObject>();
@@ -27,7 +28,6 @@ public class UtopiaManager : MonoBehaviour
     [HideInInspector] Vector3 startPos = new Vector3(-2,0, 0);
     [HideInInspector] Vector3 nextStepPos;
 
-    private int gameState; //Show state of the game. 0 is idle, 1 is in-play, 2 is end
     private int baseScore = 0;
     private int baseLevel = 1;
     private int gameplayDir; //Direction of both stepfoot and player. 0 = head 2, 1 = head -2

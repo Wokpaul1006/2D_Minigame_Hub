@@ -19,10 +19,7 @@ public class FruitsSC : MonoBehaviour
     }
     private void Update()
     {
-        if(isCountScore == true)
-        {
-            CallToCounScore();
-        }
+
     }
     IEnumerator CountToDeath()
     {
@@ -35,11 +32,9 @@ public class FruitsSC : MonoBehaviour
         }
         StartCoroutine(CountToDeath());
     }
-    private void CallToCounScore()
+    private void OnMouseEnter()
     {
-        //manager.CountSocre();
-        manager.CounTest();
-        //Destroy(gameObject);
+        print("enter");
     }
     public void OnTouchFruits() { isCountScore = true; } 
 }

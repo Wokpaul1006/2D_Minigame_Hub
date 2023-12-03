@@ -33,7 +33,6 @@ public class JumpManager : MonoBehaviour
     private int timeSurvive;
     private int curLevel;
     private int nextLvlTarget;
-    // Start is called before the first frame update
     void Start()
     {
         ingameScore = 0;
@@ -48,10 +47,11 @@ public class JumpManager : MonoBehaviour
         else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
         #endregion
 
-        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
         currentLevel.text = 1.ToString();
         curretScore.text = 0.ToString();
         spawnerPos = obstacleSpawner.transform.position;
+
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
 
     private IEnumerator OnWaitToSpawnObstacle()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 public class PopFruitsManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class PopFruitsManager : MonoBehaviour
     [HideInInspector] PauseSC pausePnl;
     [SerializeField] Text scoreTxt;
     [SerializeField] Text lvlTxt;
+    [SerializeField] Text startCoundownTxt;
+    [SerializeField] GameObject coundonwPanel;
+    private int coundownNumber;
+    private int gameState;
 
     //Specific Zone
     [SerializeField] SpawnerSC spawner;
@@ -28,55 +33,94 @@ public class PopFruitsManager : MonoBehaviour
     private Vector3 spawnerTrans;
     private void Start()
     {
-        SetUpStart();
-        StartCoroutine(CountingClock());
+        SettingStart();
 
-        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        #region Countdown Start Handle
+        if (coundownNumber == 5 && coundownNumber >= 0) StartCoroutine(StartCoundown());
+        else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
+        #endregion
+
+        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
-    private void UpdateTextScore()
+    void SettingStart()
     {
-        scoreTxt.text = curScore.ToString();
-    }
-    private void UpdateMissFruitText()
-    {
-        lostFruits.text = missedFruits.ToString();
-    }
-    void SetUpStart()
-    {
-        level = 1;
+        UpdateGameState(0);//Idle
+        UpdateLevel(1);
+
         timeToSpawn = 10;
         lvlMilestone = 10;
         curScore = 0;
+        coundownNumber = 5;
+
         spawner.SpeedUp(level);
-
         lvlTxt.text = level.ToString();
-        UpdateTextScore();
-        UpdateMissFruitText();
 
-        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        UpdateTextScore();
+        UpdateMissedFruitText();
+
+        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
-    private void RandFruitToSpawn() => rand = Random.Range(0, fruits.Count);
-    private void GetSpawnerPos() => spawnerTrans = spawner.transform.position;
+    #region Handle Start Countdown
+    private IEnumerator StartCoundown()
+    {
+        yield return new WaitForSeconds(1);
+        coundownNumber--;
+        startCoundownTxt.text = coundownNumber.ToString();
+        if (coundownNumber <= 0)
+        {
+            coundonwPanel.SetActive(false);
+            UpdateGameState(1);
+            StartCoroutine(CountingClock());
+        }
+        StartCoroutine(StartCoundown());
+    }
+    #endregion
+
+    #region Handle UIs
+
+    private void UpdateTextScore() => scoreTxt.text = curScore.ToString();
+    private void UpdateMissedFruitText() => lostFruits.text = missedFruits.ToString();
+    #endregion
+
+    #region Handle gamplay logics
+    void UpdateLevel(int lvl) => level = lvl;
+    public void UpdateGameState(int state)
+    {
+        gameState = state;
+        if (gameState == 2)
+        {
+            pausePnl.ShowPanel(true);
+            StopAllCoroutines();
+        }
+    }
+    #endregion
+
+    #region Spawning Fruits
     private void OnSpawnFruits()
     {
         RandFruitToSpawn();
         GetSpawnerPos();
         Instantiate(fruits[rand], spawnerTrans, Quaternion.identity, parent);
     }
+    private void RandFruitToSpawn() => rand = Random.Range(0, fruits.Count);
+    private void GetSpawnerPos() => spawnerTrans = spawner.transform.position;
+    #endregion
+
     private IEnumerator CountingClock()
     {
         yield return new WaitForSeconds(1f);
         countSeconds++;
+        WaitoSpawn(timeToSpawn);
         if(countSeconds == lvlMilestone)
         {
             lvlMilestone = countSeconds + 10;
             OnLevelUp();
         }
-        StartCoroutine(WaitoSpawn(timeToSpawn));
         StartCoroutine(CountingClock());
     }
     IEnumerator WaitoSpawn(float waitTime)
     {
+        print("in spawn");
         yield return new WaitForSeconds(waitTime);
         OnSpawnFruits();
     }
@@ -91,7 +135,7 @@ public class PopFruitsManager : MonoBehaviour
     public void CountMiss()
     {
         missedFruits++;
-        UpdateMissFruitText();
+        UpdateMissedFruitText();
         if(missedFruits >= 10)
         {
             //pausePnl.ShowPanel(true);
@@ -99,14 +143,8 @@ public class PopFruitsManager : MonoBehaviour
     }
     public void CountSocre() 
     {
-        print("coutn score");
         curScore++;
         UpdateTextScore(); 
     }
-    public void CounTest()
-    {
-        print("test");
-    }
-
     public void ToHome() => sceneMN.LoadScene(1, true);
 }
