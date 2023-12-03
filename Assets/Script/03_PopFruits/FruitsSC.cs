@@ -8,13 +8,11 @@ public class FruitsSC : MonoBehaviour
 {
     [SerializeField] PopFruitsManager manager;
     private int countDead;
-    private bool isCountScore;
 
-    private void Start() 
+    private void Start()
     {
         manager = GameObject.Find("PopFruitManager").GetComponent<PopFruitsManager>();
         countDead = 0;
-        isCountScore = false;
         StartCoroutine(CountToDeath());
     }
     private void Update()
@@ -34,7 +32,7 @@ public class FruitsSC : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        print("enter");
+        Destroy(gameObject);
+        manager.CountSocre();
     }
-    public void OnTouchFruits() { isCountScore = true; } 
 }

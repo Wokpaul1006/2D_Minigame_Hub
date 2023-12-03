@@ -29,7 +29,7 @@ public class PopFruitsManager : MonoBehaviour
     [HideInInspector] public int missedFruits;
 
     private int rand, level, countSeconds, lvlMilestone, curScore;
-    private float timeToSpawn;
+    private float delaySpawnTime, baseDelayTime; //This variable base on current level
     private Vector3 spawnerTrans;
     private void Start()
     {
@@ -40,22 +40,21 @@ public class PopFruitsManager : MonoBehaviour
         else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
         #endregion
 
-        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     void SettingStart()
     {
         UpdateGameState(0);//Idle
         UpdateLevel(1);
 
-        timeToSpawn = 10;
+        delaySpawnTime = 10;
         lvlMilestone = 10;
         curScore = 0;
         coundownNumber = 5;
+        baseDelayTime = 5;
 
-        spawner.SpeedUp(level);
-        lvlTxt.text = level.ToString();
-
-        UpdateTextScore();
+        UpdateLvlText(level);
+        UpdateTextScore(curScore);
         UpdateMissedFruitText();
 
         //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
@@ -70,15 +69,15 @@ public class PopFruitsManager : MonoBehaviour
         {
             coundonwPanel.SetActive(false);
             UpdateGameState(1);
-            StartCoroutine(CountingClock());
+            StartGameplay();
         }
         StartCoroutine(StartCoundown());
     }
     #endregion
 
     #region Handle UIs
-
-    private void UpdateTextScore() => scoreTxt.text = curScore.ToString();
+    private void UpdateLvlText(int lvl) => lvlTxt.text = lvl.ToString();
+    private void UpdateTextScore(int curScoreing) => scoreTxt.text = curScoreing.ToString();
     private void UpdateMissedFruitText() => lostFruits.text = missedFruits.ToString();
     #endregion
 
@@ -96,41 +95,46 @@ public class PopFruitsManager : MonoBehaviour
     #endregion
 
     #region Spawning Fruits
+    void StartGameplay()
+    {
+        if(gameState == 1)
+        {
+            OnSpawnFruits();
+            OnCheckLevel();
+        }
+    }
     private void OnSpawnFruits()
     {
         RandFruitToSpawn();
         GetSpawnerPos();
-        Instantiate(fruits[rand], spawnerTrans, Quaternion.identity, parent);
+        Instantiate(fruits[rand], spawnerTrans, Quaternion.identity);
+        Invoke("OnSpawnFruits", delaySpawnTime);
     }
     private void RandFruitToSpawn() => rand = Random.Range(0, fruits.Count);
     private void GetSpawnerPos() => spawnerTrans = spawner.transform.position;
+    private void DecideDelaySpawn()
+    {
+        if (level == 1)
+            delaySpawnTime = baseDelayTime;
+        else
+            delaySpawnTime -= 0.1f;
+    }
     #endregion
 
-    private IEnumerator CountingClock()
+    private void OnCheckLevel()
     {
-        yield return new WaitForSeconds(1f);
-        countSeconds++;
-        WaitoSpawn(timeToSpawn);
-        if(countSeconds == lvlMilestone)
+        if(level == 1)
         {
-            lvlMilestone = countSeconds + 10;
-            OnLevelUp();
+            DecideDelaySpawn();
+            spawner.SpeedUp(level);
         }
-        StartCoroutine(CountingClock());
-    }
-    IEnumerator WaitoSpawn(float waitTime)
-    {
-        print("in spawn");
-        yield return new WaitForSeconds(waitTime);
-        OnSpawnFruits();
-    }
-    private void OnLevelUp()
-    {
-        level++;
-        timeToSpawn = (timeToSpawn * level)/10;
-        spawner.SpeedUp(level);
-
-        lvlTxt.text = level.ToString();
+        else
+        {
+            level++;
+            spawner.SpeedUp(level);
+            DecideDelaySpawn();
+            UpdateLvlText(level);
+        }
     }
     public void CountMiss()
     {
@@ -138,13 +142,18 @@ public class PopFruitsManager : MonoBehaviour
         UpdateMissedFruitText();
         if(missedFruits >= 10)
         {
+            SceneManager.LoadScene("03_Pop");
             //pausePnl.ShowPanel(true);
         }
     }
     public void CountSocre() 
     {
         curScore++;
-        UpdateTextScore(); 
+        UpdateTextScore(curScore); 
+        if(curScore >= 10)
+        {
+            OnCheckLevel();
+        }
     }
     public void ToHome() => sceneMN.LoadScene(1, true);
 }

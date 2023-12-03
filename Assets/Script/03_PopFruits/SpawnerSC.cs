@@ -10,16 +10,21 @@ public class SpawnerSC : MonoBehaviour
     public bool _readySpawn;
     void Start() => SetUpStart();
     void SetUpStart() => _moveDir = 0;
-    void Update() => Movementation();
+    void Update() 
+    {
+        ChangeDir();
+        Movementation(); 
+    }
     private void Movementation()
     {
+
         //This function allow the spawner move linear
         if(_moveDir == -1 || _moveDir == 0)
         {
-            transform.position += new Vector3(-1  * _moveSpd, 0, 0);
+            transform.position += new Vector3(-1  * _moveSpd * Time.deltaTime, 0, 0);
         }else if(_moveDir == 1) 
         {
-            transform.position += new Vector3(1  * _moveSpd, 0, 0);
+            transform.position += new Vector3(1  * _moveSpd * Time.deltaTime, 0, 0);
         }
     }
     public void SpeedUp(float level) 
@@ -33,14 +38,13 @@ public class SpawnerSC : MonoBehaviour
             _moveSpd = (level * 2)/2; 
         }
     } 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void ChangeDir()
     {
-        //This function allow spawner to change direction
-        if (collision.gameObject.tag == "LEdge")
+        if (transform.position.x <= -3)
         {
             _moveDir = 1;
         }
-        else if (collision.gameObject.tag == "REdge")
+        else if(transform.position.x >= 3)
         {
             _moveDir = -1;
         }
