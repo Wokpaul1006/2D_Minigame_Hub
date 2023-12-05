@@ -15,10 +15,6 @@ public class FruitsSC : MonoBehaviour
         countDead = 0;
         StartCoroutine(CountToDeath());
     }
-    private void Update()
-    {
-
-    }
     IEnumerator CountToDeath()
     {
         yield return new WaitForSeconds(1);
@@ -30,9 +26,9 @@ public class FruitsSC : MonoBehaviour
         }
         StartCoroutine(CountToDeath());
     }
-    private void OnMouseEnter()
+    private void OnMouseDown()
     {
-        Destroy(gameObject);
         manager.CountSocre();
+        Destroy(gameObject);
     }
 }

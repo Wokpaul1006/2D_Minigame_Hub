@@ -8,24 +8,36 @@ public class CrosslaneManager : MonoBehaviour
 {
     //No. of Game" #05
     //Rule:
-    //Player press the 
+    //Player press the "GO" button to step forward. Press Navigator button to re-navigating player
+    //Try to reach target at the top to get new level
+    //If player hit car, game false
+    //Car will increase their speed for 0.1f per level
+    //Car Spawner will spawn fasster and more densier than every level
+    //Score count by how many car spawned and destrotroyed by each level
 
     #region Common zone
-    [SerializeField] Text curretScore;
-    [SerializeField] Text currentLevel;
+    [SerializeField] Text curretScoreText;
+    [SerializeField] Text currentLevelText;
 
     [HideInInspector] SceneSC sceneMN = new SceneSC();
     [HideInInspector] PauseSC pausePnl;
 
-    //Coundown start part
-    [SerializeField] Text startCoundownTxt;
-    [SerializeField] GameObject coundonwPanel;
-    private int coundownNumber;
     private int gameState; //Show state of the game. 0 is idle, 1 is in-play, 2 is end
+
+    //Coundown start part
+    [SerializeField] Text CoundownToStartTxt;
+    [SerializeField] GameObject coundonwPanel;
+    [SerializeField] CrosslaneCharSC player;
+    private int coundownNumber;
     #endregion
 
     //Specific zone
-    [SerializeField] GameObject playerSpawner;
+    [HideInInspector] Vector3 playerSpawnPos;
+    [SerializeField] List<CrossLaneSpawner> spawnList = new List<CrossLaneSpawner>();
+
+    private int curLvl; //Use this variable for entire gameplay
+    private int curScore; //Use this variable for entire gameplay
+    private int baseLvl = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -34,34 +46,36 @@ public class CrosslaneManager : MonoBehaviour
         HandleUIs();
 
         #region Countdown Start
-        if (coundownNumber == 5 && coundownNumber >= 0) StartCoroutine(StartCoundown());
-        else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
+        if (coundownNumber == 5 && coundownNumber >= 0) StartCoroutine(CoundownToStart());
+        else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(CoundownToStart());
         #endregion
 
-        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
-
     void SettingStart()
     {
         UpdateGameState(0);//Idle
         coundownNumber = 5;
+        curLvl = baseLvl;
+        playerSpawnPos = new Vector3(0, -3, 0);
+        SpawnPlayer(playerSpawnPos);
     }
+    #region UIs side Handle Zone
+    public void ToHome() => sceneMN.LoadScene(1, true);
     void HandleUIs()
     {
-        startCoundownTxt.text = coundownNumber.ToString();
-    }
-    private IEnumerator StartCoundown()
-    {
-        yield return new WaitForSeconds(1);
-        coundownNumber--;
-        startCoundownTxt.text = coundownNumber.ToString();
-        if (coundownNumber <= 0)
+        if(curLvl == 1)
         {
-            coundonwPanel.SetActive(false);
-            UpdateGameState(1);
+            CoundownToStartTxt.text = coundownNumber.ToString();
         }
-        StartCoroutine(StartCoundown());
+        UpdateCurrentScoreText(curScore);
+        UpdateCurrentLevelText(curLvl);
     }
+    private void UpdateCurrentScoreText(int score) => curretScoreText.text = score.ToString();
+    private void UpdateCurrentLevelText(int lvl) => currentLevelText.text = lvl.ToString();
+    #endregion
+
+    #region Handle Gameplay Logic Zone
     public void UpdateGameState(int state)
     {
         gameState = state;
@@ -71,6 +85,43 @@ public class CrosslaneManager : MonoBehaviour
             StopAllCoroutines();
         }
     }
+    private IEnumerator CoundownToStart()
+    {
+        yield return new WaitForSeconds(1);
+        coundownNumber--;
+        CoundownToStartTxt.text = coundownNumber.ToString();
+        if (coundownNumber <= 0)
+        {
+            coundonwPanel.SetActive(false);
+            UpdateGameState(1);
+        }
+        StartCoroutine(CoundownToStart());
+    }
+    private void SpawnPlayer(Vector3 pos) 
+    {
+        //Call this every time refresh of level
+         player = Instantiate(player, pos, Quaternion.identity);
+    }
+    public void LevelUp()
+    {
+        curLvl++;
+        HandleUIs();
+        SpawnPlayer(playerSpawnPos);
+        for(int i = 0; i<= spawnList.Count; i++) 
+        {
+            spawnList[i].UpdateDelayTime(curLvl);
+        }
+    }
+    #endregion
 
-    public void ToHome() => sceneMN.LoadScene(1, true);
+    #region Controlling Side
+    public void MoveLeft() => player.SetDir(1);
+    public void MoveRight() => player.SetDir(2);
+    public void MoveUp() => player.SetDir(3);
+    #endregion
+    public void ShowPause()
+    {
+        pausePnl.ShowPanel(true);
+        StopAllCoroutines();
+    }
 }

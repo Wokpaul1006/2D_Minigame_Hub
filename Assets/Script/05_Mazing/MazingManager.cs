@@ -49,11 +49,9 @@ public class MazingManager : MonoBehaviour
     {
         //Call this at start game and everytime update level
         if(curLvl > 1)
-        {
             ClearMaze();
-        }
         InitCage(curLvl);
-        InitMaze(curLvl);
+        //InitMaze(curLvl);
         InitSpawnPoint();
         InitGoal();
     }
@@ -94,43 +92,15 @@ public class MazingManager : MonoBehaviour
         ground = Instantiate(ground, Vector3.zero, Quaternion.identity);
         if (curLvl <= 10)
         {
-            for (int i = 0; i <= 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 //Draw upper border
-                if (i == 0) Instantiate(border, startBorderPos, Quaternion.identity);
-                else
-                {
-                    Instantiate(border, new Vector3(startBorderPos.x + i, 2, 0), Quaternion.identity);
-                }
-            }
-            for (int j = 0; j <= 8; j++)
-            {
-                //Draw bottom border
-                if (j == 0) Instantiate(border, new Vector3(startBorderPos.x, -2, 0), Quaternion.identity);
-                else
-                {
-                    Instantiate(border, new Vector3(startBorderPos.x + j, -2, 0), Quaternion.identity);
-                }
-            }
-            for (int k = 0; k <= 8; k++)
-            {
-                //Draw left vertical border
-                if (k == 0) Instantiate(border, startBorderPos, Quaternion.identity);
-                {
-                    Instantiate(border, new Vector3(startBorderPos.x, startBorderPos.y - k , 0), Quaternion.identity);
-                }
-            }
-            for (int l = 0; l <= 8; l++)
-            {
-                //Draw left right border
-                if (l == 0) Instantiate(border, new Vector3(2, 2, 0), Quaternion.identity);
-                else
-                {
-                    Instantiate(border, new Vector3(-(startBorderPos.x), startBorderPos.y - l, 0), Quaternion.identity);
-                }
+                if (i == 0) Instantiate(border, new Vector3(-2,2,0), Quaternion.identity);
+                else if(i ==7) Instantiate(border, new Vector3(-2, 2, 0), Quaternion.identity);
+                else if (i == 3) Instantiate(border, new Vector3(0, 2, 0), Quaternion.identity);
+                else Instantiate(border, new Vector3(startBorderPos.x + i, 2, 0), Quaternion.identity);
             }
         }
-        
     }
     private void InitSpawnPoint()
     {

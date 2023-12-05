@@ -33,6 +33,7 @@ public class JumpManager : MonoBehaviour
     private int timeSurvive;
     private int curLevel;
     private int nextLvlTarget;
+    private float delaySpawnTime;
     void Start()
     {
         ingameScore = 0;
@@ -83,12 +84,12 @@ public class JumpManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         timeSurvive++;
-        print("time to Survive: " + timeSurvive);
         IncreaseInGameScore();
         IncreaseUIScore();
         if(ingameScore == nextLvlTarget)
         {
             IncreaseInGameLevel();
+            DecideTimeSpawn(curLevel);
             DecideNextLevelTarget();
         }
         UpdateOnScreenSecond();
@@ -113,5 +114,15 @@ public class JumpManager : MonoBehaviour
             StartCoroutine(CountToScore());
         }
         StartCoroutine(StartCoundown());
+    }
+    private void DecideTimeSpawn(int lvl)
+    {
+        if (lvl == 1)
+            delaySpawnTime = 4f;
+        else if(lvl >1 && lvl <= 21)
+        {
+            delaySpawnTime -= 0.1f;
+        }
+        else lvl = Random.Range(2, 5);
     }
 }

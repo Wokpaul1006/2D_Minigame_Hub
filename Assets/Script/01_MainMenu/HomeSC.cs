@@ -120,10 +120,16 @@ public class HomeSC : MonoBehaviour
     #region Change Scene
     public void ToJumpDino() => sceneMN.LoadScene(2, true);
     public void ToPopFruits() => sceneMN.LoadScene(3, true);
-    public void ToUtopia() => sceneMN.LoadScene(5, true);
-    public void ToMazing() => sceneMN.LoadScene(4, true);
+    public void ToUtopia() => sceneMN.LoadScene(4, true);
+    public void ToMazing()
+    {
+        //sceneMN.LoadScene(5, true);
+    }
     public void ToCrosslane() => sceneMN.LoadScene(6, true);
-    public void ToXXX() => sceneMN.LoadScene(5, true);
+    public void ToDigIt()
+    {
+        //sceneMN.LoadScene(5, true);
+    }
     public void ExitGame() => Application.Quit();
     #endregion
 }

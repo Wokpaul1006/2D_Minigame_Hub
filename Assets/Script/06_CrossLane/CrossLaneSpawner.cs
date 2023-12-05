@@ -15,7 +15,6 @@ public class CrossLaneSpawner : MonoBehaviour
     private void Start()
     {
         SetupStart();
-        SpawnCar();
         StartCoroutine(WaitToSpawnCar(delaySpawn));
     }
     void SetupStart()
@@ -24,12 +23,11 @@ public class CrossLaneSpawner : MonoBehaviour
         randCar = 0;
         spawnPos = gameObject.transform.position;
     }
-
-    private void SpawnCar() => Instantiate(carList[DecideRandCar()], spawnPos, Quaternion.identity);
+    private void SpawnCar() => Instantiate(carList[DecideRandCar()], spawnPos, Quaternion.Euler(0,180,90));
     private int DecideRandCar() { return randCar = Random.Range(1, carList.Count); }
     IEnumerator WaitToSpawnCar(float spawnTime) 
     {
-        yield return new WaitForSeconds(spawnTime);
+        yield return new WaitForSeconds(5); //put spawnTime here
         SpawnCar();
         StartCoroutine(WaitToSpawnCar(delaySpawn));
     }
@@ -41,7 +39,5 @@ public class CrossLaneSpawner : MonoBehaviour
         {
             delaySpawn = 0.2f;
         }
-
     }
-
 }

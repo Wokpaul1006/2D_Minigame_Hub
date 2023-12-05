@@ -28,7 +28,7 @@ public class LoadSC : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         loadSlide.value += loadSpd * Time.deltaTime *10;
-        loadProgress.text = Mathf.Round(loadSlide.value).ToString() + "%";
+        loadProgress.text = (loadSlide.value*100) + "%";
         StartCoroutine(RunLoad());
     }
 }
