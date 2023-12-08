@@ -56,8 +56,6 @@ public class PopFruitsManager : MonoBehaviour
         UpdateLvlText(level);
         UpdateTextScore(curScore);
         UpdateMissedFruitText();
-
-        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     #region Handle Start Countdown
     private IEnumerator StartCoundown()
@@ -142,8 +140,7 @@ public class PopFruitsManager : MonoBehaviour
         UpdateMissedFruitText();
         if(missedFruits >= 10)
         {
-            SceneManager.LoadScene("03_Pop");
-            //pausePnl.ShowPanel(true);
+            pausePnl.ShowPanel(true);
         }
     }
     public void CountSocre() 

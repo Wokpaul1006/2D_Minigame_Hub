@@ -59,7 +59,7 @@ public class JumpManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         SpawnObstacle();
-        StartCoroutine(OnWaitToSpawnObstacle());
+        //StartCoroutine(OnWaitToSpawnObstacle());
     }
     private void SpawnObstacle()
     {
@@ -93,7 +93,6 @@ public class JumpManager : MonoBehaviour
             DecideNextLevelTarget();
         }
         UpdateOnScreenSecond();
-        StartCoroutine(CountToScore());
     }
     private void UpdateOnScreenSecond() => currentTimeSurvive.text = timeSurvive.ToString()+"s";
     private void IncreaseInGameScore() => ingameScore++;
