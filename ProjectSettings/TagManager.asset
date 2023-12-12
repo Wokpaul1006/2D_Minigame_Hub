@@ -11,6 +11,7 @@ TagManager:
   - Deadline
   - Goal
   - Obstacle
+  - Stage
   layers:
   - Default
   - TransparentFX
