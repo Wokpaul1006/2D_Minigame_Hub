@@ -32,7 +32,7 @@ public class JumpDinoSC : MonoBehaviour
     {
         if(collision.gameObject.tag == "Obstacle")
         {
-            manager.ShowPause();
+            manager.UpdateGameState(2);
             Destroy(gameObject);
             Destroy(collision.gameObject);
         }

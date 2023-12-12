@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 
 public class UtopiaCharSC : MonoBehaviour
 {
@@ -14,12 +16,14 @@ public class UtopiaCharSC : MonoBehaviour
     private float forwardSpd;
     private int playerDir;
     private int playerState;
+    private bool isLeaveGround;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         jumpSpd = 5f;
         forwardSpd = 0.5f;
         playerState = 0;
+        isLeaveGround = false;
         SettingStart();
     }
     void SettingStart()
@@ -33,7 +37,7 @@ public class UtopiaCharSC : MonoBehaviour
     {
         if(playerState == 1)
         {
-            if (isJump)
+            if (isJump || Input.GetKeyDown("space"))
             {
                 CharJump();
             }
@@ -70,6 +74,16 @@ public class UtopiaCharSC : MonoBehaviour
         if(collision.gameObject.tag == "Deadline")
         {
             manager.UpdateGameState(2);
+        }else if(collision.gameObject.tag == "Stage")
+        {
+            isLeaveGround = true;
+            manager.IncreaseScore();
+        }else if(collision.gameObject.tag == "Ground")
+        {
+            if (isLeaveGround)
+            {
+                manager.UpdateGameState(2);
+            }
         }
     }
 }

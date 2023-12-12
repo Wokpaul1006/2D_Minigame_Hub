@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,11 @@ public class UtopiaManager : MonoBehaviour
     private int playerDir;
     private int randStepOder; //Random oder of footstep in the list
     private float randStepX, randStepY;
+
+    //Scoring variables
+    int curScore;
+    int curLevel;
+    private int nextLvlTarget;
     void Start()
     {
         SettingStart();
@@ -49,22 +55,34 @@ public class UtopiaManager : MonoBehaviour
     private void SettingStart()
     {
         UpdateGameState(0);//Idle
-        baseScore = 0;
+        curScore = baseScore = 0;
         baseLevel = 0;
         coundownNumber = 5;
         randStepY = -3;
         randStepX = 0;
 
+        curLevel = 1;
         gameplayDir = 0;
         playerDir = 0;
+        nextLvlTarget = 10;
+
+        DecideStepSpawn();
     }
 
     #region Internal Handle
     private void HandleUIs()
     {
-        curretScore.text = baseScore.ToString();
-        currentLevel.text = baseLevel.ToString();
-        startCoundownTxt.text = coundownNumber.ToString();
+        if(gameState == 0)
+        {
+            curretScore.text = baseScore.ToString();
+            currentLevel.text = baseLevel.ToString();
+            startCoundownTxt.text = coundownNumber.ToString();
+        }else if(gameState == 1)
+        {
+            curretScore.text = curScore.ToString();
+            currentLevel.text = curLevel.ToString();
+        }
+
     }
     private IEnumerator StartCoundown()
     {
@@ -76,7 +94,6 @@ public class UtopiaManager : MonoBehaviour
             coundonwPanel.SetActive(false);
             UpdateGameState(1);
             character.DecidePlayeState(1);
-            DecideStepSpawn();
             StartCoroutine(RisingTide());
         }
         StartCoroutine(StartCoundown());
@@ -124,9 +141,8 @@ public class UtopiaManager : MonoBehaviour
     }
     private IEnumerator RisingTide()
     {
-        yield return new WaitForSeconds(1);
-        theTide.transform.position += new Vector3(0,0.1f,0);
-        print("tide Pos: " + theTide.transform.position);
+        yield return new WaitForSeconds(2);
+        theTide.transform.position += new Vector3(0,0.01f,0);
         StartCoroutine(RisingTide());
     }
     #endregion
@@ -135,7 +151,6 @@ public class UtopiaManager : MonoBehaviour
     {
         character.isJump = true;
         DecideStepSpawn();
-
         SettingNewTargetPos();
     }
     public void OnChangeDir() 
@@ -161,8 +176,17 @@ public class UtopiaManager : MonoBehaviour
             StopAllCoroutines();
         }
     }
-    public int CallbackGameState()
+    public int CallbackGameState() { return gameState; }
+    public void IncreaseScore()
     {
-        return gameState;
+        curScore++;
+        if(curScore == nextLvlTarget)
+        {
+            IncreaseLevel();
+            DecideNextLevelTarget();
+        }
+        HandleUIs();
     }
+    private void IncreaseLevel() => curLevel++;
+    private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 5);
 }

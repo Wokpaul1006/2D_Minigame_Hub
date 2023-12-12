@@ -1132,8 +1132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3512c5f119aa3d04abbb04d6ae34681a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curretScore: {fileID: 804706002}
-  currentLevel: {fileID: 125914750}
+  curretScore: {fileID: 125914750}
+  currentLevel: {fileID: 804706002}
   startCoundownTxt: {fileID: 2079297775}
   coundonwPanel: {fileID: 1927885654}
   dino: {fileID: 87643103}
@@ -2913,6 +2913,10 @@ PrefabInstance:
     - target: {fileID: 1175563469464602928, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_GravityScale
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864735833729149605, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3580623331744191569, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_LocalPosition.x

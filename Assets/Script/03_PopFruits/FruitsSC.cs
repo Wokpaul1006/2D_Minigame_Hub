@@ -31,4 +31,16 @@ public class FruitsSC : MonoBehaviour
         manager.CountSocre();
         Destroy(gameObject);
     }
+
+    private void OnMouseDrag()
+    {
+        manager.CountSocre();
+        Destroy(gameObject);
+    }
+
+    private void OnMouseUp() 
+    {
+        manager.CountSocre();
+        Destroy(gameObject);
+    }
 }

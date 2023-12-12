@@ -19,6 +19,7 @@ public class JumpManager : MonoBehaviour
     [SerializeField] Text startCoundownTxt;
     [SerializeField] GameObject coundonwPanel;
     private int coundownNumber;
+    private int gameStage;
 
     //Sepcific Zone
     [SerializeField] JumpDinoSC dino;
@@ -41,6 +42,7 @@ public class JumpManager : MonoBehaviour
         curLevel = 1;
         nextLvlTarget = 10;
         coundownNumber = 5;
+        UpdateGameState(0);
 
         #region Countdown Start
         HandleCoundownStartText();
@@ -54,7 +56,70 @@ public class JumpManager : MonoBehaviour
 
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
+    private IEnumerator StartCoundown()
+    {
+        yield return new WaitForSeconds(1);
+        coundownNumber--;
+        startCoundownTxt.text = coundownNumber.ToString();
+        if (coundownNumber <= 0)
+        {
+            UpdateGameState(1);
+        }
+        StartCoroutine(StartCoundown());
+    }
+    #region UIs Handlers
+    private void HandleCoundownStartText() => startCoundownTxt.text = coundownNumber.ToString();
+    private void UpdateOnScreenSecond() => currentTimeSurvive.text = timeSurvive.ToString() + "s";
+    private void IncreaseUIScore() => curretScore.text = ingameScore.ToString();
+    public void ShowPause()
+    {
+        pausePnl.ShowPanel(true);
+        StopAllCoroutines();
+    }
+    #endregion
 
+    #region Gameplay Handlers
+    private void DecideTimeSpawn(int lvl)
+    {
+        if (lvl == 1)
+            delaySpawnTime = 4f;
+        else if (lvl > 1 && lvl <= 21)
+        {
+            delaySpawnTime -= 0.1f;
+        }
+        else lvl = Random.Range(2, 5);
+    }
+    public void UpdateGameState(int state)
+    {
+        gameStage = state;
+        switch(gameStage) 
+        {
+            case 1:
+                DecideNextLevelTarget();
+                coundonwPanel.SetActive(false);
+                StartCoroutine(CountToScore());
+                StartCoroutine(OnWaitToSpawnObstacle());
+                break;
+            case 2:
+                ShowPause();
+                StopAllCoroutines();
+                break;
+        }
+    }
+    private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 10);
+    private void IncreaseInGameScore() => ingameScore++;
+    private void IncreaseInGameLevel() => curLevel++;
+    #endregion
+
+    #region Handle Gameplay Activities
+    public void OnJump()
+    {
+        if (dino.isGrounded == true)
+        {
+            dino.isGrounded = false;
+            dino.allowJump = true;
+        }
+    }
     private IEnumerator OnWaitToSpawnObstacle()
     {
         yield return new WaitForSeconds(5);
@@ -66,27 +131,13 @@ public class JumpManager : MonoBehaviour
         objApparance = Random.Range(0, listObts.Count);
         Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
     }
-    public void OnJump()
-    {
-        if(dino.isGrounded == true)
-        {
-            dino.isGrounded = false;
-            dino.allowJump = true;
-        }
-    }
-    public void ShowPause()
-    {
-        pausePnl.ShowPanel(true);
-        StopAllCoroutines();
-    }
-    private void HandleCoundownStartText() => startCoundownTxt.text = coundownNumber.ToString();
     private IEnumerator CountToScore()
     {
         yield return new WaitForSeconds(1);
         timeSurvive++;
         IncreaseInGameScore();
         IncreaseUIScore();
-        if(ingameScore == nextLvlTarget)
+        if (ingameScore == nextLvlTarget)
         {
             IncreaseInGameLevel();
             DecideTimeSpawn(curLevel);
@@ -94,34 +145,5 @@ public class JumpManager : MonoBehaviour
         }
         UpdateOnScreenSecond();
     }
-    private void UpdateOnScreenSecond() => currentTimeSurvive.text = timeSurvive.ToString()+"s";
-    private void IncreaseInGameScore() => ingameScore++;
-    private void IncreaseInGameLevel() => curLevel++;
-    private void IncreaseUIScore() => curretScore.text = ingameScore.ToString();
-    private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 10);
-    public void ToHome() => sceneMN.LoadScene(1, true);
-    private IEnumerator StartCoundown()
-    {
-        yield return new WaitForSeconds(1);
-        coundownNumber--;
-        startCoundownTxt.text = coundownNumber.ToString();
-        if (coundownNumber <= 0)
-        {
-            coundonwPanel.SetActive(false);
-            DecideNextLevelTarget();
-            StartCoroutine(OnWaitToSpawnObstacle());
-            StartCoroutine(CountToScore());
-        }
-        StartCoroutine(StartCoundown());
-    }
-    private void DecideTimeSpawn(int lvl)
-    {
-        if (lvl == 1)
-            delaySpawnTime = 4f;
-        else if(lvl >1 && lvl <= 21)
-        {
-            delaySpawnTime -= 0.1f;
-        }
-        else lvl = Random.Range(2, 5);
-    }
+    #endregion
 }
