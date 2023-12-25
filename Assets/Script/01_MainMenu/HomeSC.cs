@@ -14,6 +14,7 @@ public class HomeSC : MonoBehaviour
     [SerializeField] GameObject listGamePanel;
     [SerializeField] GameObject menuPanel;
     [SerializeField] GameObject buttonAction;
+    [SerializeField] GameObject regisPanel;
 
     //Common Zone
     [SerializeField] Image playerAvt;
@@ -36,14 +37,17 @@ public class HomeSC : MonoBehaviour
         pause = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
         listGamePanel.SetActive(true);
         butActionState = 0;
-        menuSubState = 0; 
+        menuSubState = 0;
+
+        CheckFirstPlay();
     }
 
     #region Common Section
     private void ShowPanel(int panelOder, bool show) => subPanel[panelOder].SetActive(show);
-    private void LoadUser()
+    public void LoadUser()
     {
         LoadAvatar();
+        LoadName();
         LoadHighestScore();
         LoadHighestLevel();
         LoadTotalScore();
@@ -52,18 +56,10 @@ public class HomeSC : MonoBehaviour
     {
         //Load PlayerPrefs for this
     }
-    private void LoadTotalScore()
-    {
-        //Load PlayerPrefs for this
-    }
-    private void LoadHighestLevel()
-    {
-        //Load PlayerPrefs for this
-    }
-    private void LoadHighestScore() 
-    {
-        //Load PlayerPrefs for this
-    }
+    private void LoadName() => playerNameText.text = PlayerPrefs.GetString("PName");
+    private void LoadTotalScore() => totalScoreText.text = PlayerPrefs.GetInt("PTotalScore").ToString();
+    private void LoadHighestLevel() => highestLevelText.text = PlayerPrefs.GetInt("PHighestLevel").ToString();
+    private void LoadHighestScore() => highestScoreText.text = PlayerPrefs.GetInt("PHighestScore").ToString();
     public void SwitchPanel() 
     {
         if(butActionState == 0)
@@ -131,5 +127,24 @@ public class HomeSC : MonoBehaviour
         //sceneMN.LoadScene(5, true);
     }
     public void ExitGame() => Application.Quit();
+    #endregion
+
+    #region Player Date Handle
+    void CheckFirstPlay()
+    {
+        if (isFirstPlay())
+        {
+            regisPanel.SetActive(true);
+        }else 
+        {
+            LoadUser();
+            regisPanel.SetActive(false);
+        }
+    }
+    private bool isFirstPlay()
+    {
+        if (PlayerPrefs.GetInt("HasPlayed", 0) == 0) { return true; }
+        else { return false; }
+    }
     #endregion
 }

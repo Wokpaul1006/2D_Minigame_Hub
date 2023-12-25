@@ -28,7 +28,7 @@ public class PopFruitsManager : MonoBehaviour
     [SerializeField] List<GameObject> fruits = new List<GameObject>();
     [HideInInspector] public int missedFruits;
 
-    private int rand, level, curScore;
+    private int rand, level, countSeconds, lvlMilestone, curScore;
     private float delaySpawnTime, baseDelayTime; //This variable base on current level
     private Vector3 spawnerTrans;
     private void Start()

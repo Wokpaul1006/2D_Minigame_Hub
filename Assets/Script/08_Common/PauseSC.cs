@@ -11,18 +11,15 @@ public class PauseSC : Singleton<PauseSC>
     [SerializeField] SceneSC sceneMN = new SceneSC();
     private void Start()
     {
-        print("in start pause");
         ShowPanel(false);
     }
     public void ToHome() 
     {
-        print("on click back home");
         sceneMN.LoadScene(1, true);
         ShowPanel(false); 
     }
     public void Restart()
     {
-        print("on click restart");
         GetCurrentScen();
         SceneManager.LoadScene(sceneName);
         ShowPanel(false);
