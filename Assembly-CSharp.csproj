@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\08_Common\Singleton.cs" />
     <Compile Include="Assets\Script\05_Mazing\MazingManager.cs" />
+    <Compile Include="Assets\CreditPanelSC.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CrossLaneSpawner.cs" />
     <Compile Include="Assets\Script\07_DigIt\DigItManager.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CrosslaneManager.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Assets\Script\04_Utopia\UtopiaManager.cs" />
     <Compile Include="Assets\Script\08_Common\SceneSC.cs" />
     <Compile Include="Assets\Script\03_PopFruits\FruitsSC.cs" />
+    <Compile Include="Assets\Script\01_MainMenu\PlayerRegisSC.cs" />
     <Compile Include="Assets\Script\01_MainMenu\HomeSC.cs" />
   </ItemGroup>
   <ItemGroup>
