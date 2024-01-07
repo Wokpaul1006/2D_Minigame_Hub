@@ -7,6 +7,8 @@ public class JumpDinoSC : MonoBehaviour
 {
     [SerializeField] JumpManager manager;
     [HideInInspector] Rigidbody2D rb;
+    [HideInInspector] SpriteRenderer apparance;
+    [SerializeField] Animator dinoAnim;
     private Vector3 originPos;
     public bool allowJump;
     public bool isGrounded;
@@ -16,7 +18,9 @@ public class JumpDinoSC : MonoBehaviour
         originPos = transform.position;
         jumpSpd = 5f;
         allowJump = false;
+
         //manager = GameObject.Find("RunningManager").GetComponent<JumpManager>();
+
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -27,6 +31,7 @@ public class JumpDinoSC : MonoBehaviour
     {
         rb.AddForce(transform.up * jumpSpd, ForceMode2D.Impulse);
         allowJump = false;
+        dinoAnim.SetBool("isJump", true);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -39,6 +44,7 @@ public class JumpDinoSC : MonoBehaviour
         else if(collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
+            dinoAnim.SetBool("isJump", false);
         }
     }
 }

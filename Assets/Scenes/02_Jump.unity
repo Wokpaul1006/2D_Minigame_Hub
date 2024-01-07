@@ -275,9 +275,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212fb1c35c3dfa34f996b9c5c8474c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dinoApparancies:
+  - {fileID: 21300000, guid: 114cb4015908fe344836da61402f4772, type: 3}
+  - {fileID: 21300000, guid: 6ee428eb6dd86fa449425b9e5b09d88c, type: 3}
+  - {fileID: 21300000, guid: 1af4306201383254cbf8b2b920e51632, type: 3}
   manager: {fileID: 1139970537}
+  dinoAnim: {fileID: 87643107}
   allowJump: 0
   isGrounded: 0
+--- !u!95 &87643107
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87643098}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f166259e377d13b4dafba349565ef933, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &96815748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,9 +2940,33 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 2649395072695025315, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 114cb4015908fe344836da61402f4772, type: 3}
+    - target: {fileID: 2649395072695025315, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649395072695025315, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2864735833729149605, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3580623331744191569, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3580623331744191569, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3580623331744191569, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3580623331744191569, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2969,6 +3019,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5525190037480749338, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 87643103}
+    - targetCorrespondingSourceObject: {fileID: 5525190037480749338, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 87643107}
   m_SourcePrefab: {fileID: 100100000, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

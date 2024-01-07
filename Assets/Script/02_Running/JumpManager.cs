@@ -54,6 +54,8 @@ public class JumpManager : MonoBehaviour
         curretScore.text = 0.ToString();
         spawnerPos = obstacleSpawner.transform.position;
 
+        DecideTimeSpawn(curLevel);
+
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     private IEnumerator StartCoundown()
@@ -63,7 +65,10 @@ public class JumpManager : MonoBehaviour
         startCoundownTxt.text = coundownNumber.ToString();
         if (coundownNumber <= 0)
         {
+            print("count number <= 0");
             UpdateGameState(1);
+            StopCoroutine(StartCoundown());
+            print("courotine stoped");
         }
         StartCoroutine(StartCoundown());
     }
@@ -82,10 +87,10 @@ public class JumpManager : MonoBehaviour
     private void DecideTimeSpawn(int lvl)
     {
         if (lvl == 1)
-            delaySpawnTime = 4f;
+            delaySpawnTime = 5f;
         else if (lvl > 1 && lvl <= 21)
         {
-            delaySpawnTime -= 0.1f;
+            delaySpawnTime -= 0.1f; 
         }
         else lvl = Random.Range(2, 5);
     }
@@ -98,7 +103,8 @@ public class JumpManager : MonoBehaviour
                 DecideNextLevelTarget();
                 coundonwPanel.SetActive(false);
                 StartCoroutine(CountToScore());
-                StartCoroutine(OnWaitToSpawnObstacle());
+                //StartCoroutine(OnWaitToSpawnObstacle());
+                Invoke("SpawnObjects", delaySpawnTime);
                 break;
             case 2:
                 ShowPause();
@@ -120,11 +126,20 @@ public class JumpManager : MonoBehaviour
             dino.allowJump = true;
         }
     }
+    private void SpawnObjects()
+    {
+        objApparance = Random.Range(0, listObts.Count);
+        Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
+    }
     private IEnumerator OnWaitToSpawnObstacle()
     {
-        yield return new WaitForSeconds(5);
-        SpawnObstacle();
-        //StartCoroutine(OnWaitToSpawnObstacle());
+        yield return new WaitForSeconds(delaySpawnTime);
+        //SpawnObstacle();
+
+        objApparance = Random.Range(0, listObts.Count);
+        Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
+
+        StartCoroutine(OnWaitToSpawnObstacle());
     }
     private void SpawnObstacle()
     {
