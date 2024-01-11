@@ -70,6 +70,7 @@
     <Compile Include="Assets\Script\08_Common\PauseSC.cs" />
     <Compile Include="Assets\Script\02_Running\JumpManager.cs" />
     <Compile Include="Assets\Script\05_Mazing\MazingPlayerSC.cs" />
+    <Compile Include="Assets\CloudSC.cs" />
     <Compile Include="Assets\Script\03_PopFruits\PopFruitsManager.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CarSC.cs" />
     <Compile Include="Assets\Script\02_Running\JumpDinoSC.cs" />
