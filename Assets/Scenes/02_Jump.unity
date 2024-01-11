@@ -275,10 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212fb1c35c3dfa34f996b9c5c8474c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dinoApparancies:
-  - {fileID: 21300000, guid: 114cb4015908fe344836da61402f4772, type: 3}
-  - {fileID: 21300000, guid: 6ee428eb6dd86fa449425b9e5b09d88c, type: 3}
-  - {fileID: 21300000, guid: 1af4306201383254cbf8b2b920e51632, type: 3}
   manager: {fileID: 1139970537}
   dinoAnim: {fileID: 87643107}
   allowJump: 0
@@ -1162,6 +1158,11 @@ MonoBehaviour:
   currentLevel: {fileID: 804706002}
   startCoundownTxt: {fileID: 2079297775}
   coundonwPanel: {fileID: 1927885654}
+  ground: {fileID: 1825730825}
+  cloundList:
+  - {fileID: 6524820767625771585, guid: 00b2fdd40181cce499725e41b5aa5213, type: 3}
+  - {fileID: 898083470294315106, guid: 1284260aed00e9547b28135dada1ae8e, type: 3}
+  - {fileID: 8588733325933629731, guid: b733f2853e675314f9167cdbf72aa136, type: 3}
   dino: {fileID: 87643103}
   gamezone: {fileID: 0}
   listObts:
@@ -2946,11 +2947,23 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 114cb4015908fe344836da61402f4772, type: 3}
     - target: {fileID: 2649395072695025315, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2649395072695025315, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_Color.g
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864735833729149605, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864735833729149605, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_Size.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864735833729149605, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2864735833729149605, guid: 7ba1656eb0c0000438c164f2ffd499f5, type: 3}
       propertyPath: m_IsTrigger

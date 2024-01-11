@@ -22,6 +22,8 @@ public class JumpManager : MonoBehaviour
     private int gameStage;
 
     //Sepcific Zone
+    [SerializeField] GameObject ground;
+    [SerializeField] List<GameObject> cloundList = new List<GameObject>();
     [SerializeField] JumpDinoSC dino;
     [SerializeField] Transform gamezone;
     [SerializeField] List<GameObject> listObts = new List<GameObject>();
@@ -55,6 +57,8 @@ public class JumpManager : MonoBehaviour
         spawnerPos = obstacleSpawner.transform.position;
 
         DecideTimeSpawn(curLevel);
+        StartCoroutine(OnWaitToSpawnObstacle(delaySpawnTime));
+        StartCoroutine(SpawnClound());
 
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
@@ -65,10 +69,8 @@ public class JumpManager : MonoBehaviour
         startCoundownTxt.text = coundownNumber.ToString();
         if (coundownNumber <= 0)
         {
-            print("count number <= 0");
             UpdateGameState(1);
             StopCoroutine(StartCoundown());
-            print("courotine stoped");
         }
         StartCoroutine(StartCoundown());
     }
@@ -76,6 +78,7 @@ public class JumpManager : MonoBehaviour
     private void HandleCoundownStartText() => startCoundownTxt.text = coundownNumber.ToString();
     private void UpdateOnScreenSecond() => currentTimeSurvive.text = timeSurvive.ToString() + "s";
     private void IncreaseUIScore() => curretScore.text = ingameScore.ToString();
+    private void IncreaseUILevel() => currentLevel.text = curLevel.ToString();
     public void ShowPause()
     {
         pausePnl.ShowPanel(true);
@@ -84,6 +87,24 @@ public class JumpManager : MonoBehaviour
     #endregion
 
     #region Gameplay Handlers
+    private IEnumerator SpawnClound()
+    {
+        yield return new WaitForSeconds(2);
+        int randY = Random.RandomRange(-1, 5);
+        Instantiate(cloundList[Random.Range(0, 2)], new Vector3(4, randY, 0), Quaternion.identity);
+        StartCoroutine(SpawnClound());
+    }
+    private void GroundMovement()
+    {
+        if(ground.transform.position.x <= -8)
+        {
+            ground.transform.position = new Vector3(8, -4, 0);
+        }
+        else
+        {
+            ground.transform.position += Vector3.left;
+        }
+    }
     private void DecideTimeSpawn(int lvl)
     {
         if (lvl == 1)
@@ -103,8 +124,6 @@ public class JumpManager : MonoBehaviour
                 DecideNextLevelTarget();
                 coundonwPanel.SetActive(false);
                 StartCoroutine(CountToScore());
-                //StartCoroutine(OnWaitToSpawnObstacle());
-                Invoke("SpawnObjects", delaySpawnTime);
                 break;
             case 2:
                 ShowPause();
@@ -131,20 +150,14 @@ public class JumpManager : MonoBehaviour
         objApparance = Random.Range(0, listObts.Count);
         Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
     }
-    private IEnumerator OnWaitToSpawnObstacle()
+    private IEnumerator OnWaitToSpawnObstacle(float delay)
     {
         yield return new WaitForSeconds(delaySpawnTime);
-        //SpawnObstacle();
 
         objApparance = Random.Range(0, listObts.Count);
         Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
 
-        StartCoroutine(OnWaitToSpawnObstacle());
-    }
-    private void SpawnObstacle()
-    {
-        objApparance = Random.Range(0, listObts.Count);
-        Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
+        StartCoroutine(OnWaitToSpawnObstacle(delay));
     }
     private IEnumerator CountToScore()
     {
@@ -157,8 +170,36 @@ public class JumpManager : MonoBehaviour
             IncreaseInGameLevel();
             DecideTimeSpawn(curLevel);
             DecideNextLevelTarget();
+            IncreaseUILevel();
+
+            UpdtatePlayerPrefs();
         }
         UpdateOnScreenSecond();
+        GroundMovement();
+    }
+
+    private void UpdtatePlayerPrefs()
+    {
+        //Get player prefs section
+        int currenTotalScore;
+        int highestScoreToCompare;
+        int highestLevelToCompare;
+
+        int newTotalScore;
+
+        currenTotalScore = PlayerPrefs.GetInt("PTotalScore");
+        highestLevelToCompare = PlayerPrefs.GetInt("PHighestLevel");
+        highestScoreToCompare = PlayerPrefs.GetInt("PHighestScore");
+
+        //Update total score
+        newTotalScore = currenTotalScore + ingameScore;
+        PlayerPrefs.SetInt("PTotalScore", ingameScore); //total of score that player have earn
+
+        //Update highest score
+        if(highestScoreToCompare < ingameScore) PlayerPrefs.SetInt("PHighestScore", ingameScore); //highest score that player can reach of all games
+
+        //Update highets level
+        if (highestLevelToCompare < curLevel) PlayerPrefs.SetInt("PHighestLevel", curLevel); //highest level player can reach
     }
     #endregion
 }

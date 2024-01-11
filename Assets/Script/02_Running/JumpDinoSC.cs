@@ -16,7 +16,7 @@ public class JumpDinoSC : MonoBehaviour
     private void Start()
     {
         originPos = transform.position;
-        jumpSpd = 5f;
+        jumpSpd = 6f;
         allowJump = false;
 
         //manager = GameObject.Find("RunningManager").GetComponent<JumpManager>();
