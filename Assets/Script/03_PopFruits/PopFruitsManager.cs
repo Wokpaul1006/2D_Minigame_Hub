@@ -132,18 +132,16 @@ public class PopFruitsManager : MonoBehaviour
             spawner.SpeedUp(level);
             DecideDelaySpawn();
             UpdateLvlText(level);
+            UpdtatePlayerPrefs();
         }
     }
     public void CountMiss()
     {
         missedFruits++;
         UpdateMissedFruitText();
-        if(missedFruits >= 10)
-        {
-            pausePnl.ShowPanel(true);
-        }
+        if(missedFruits >= 10) pausePnl.ShowPanel(true);
     }
-    public void CountSocre() 
+    public void CountScore() 
     {
         curScore++;
         UpdateTextScore(curScore); 
@@ -153,4 +151,28 @@ public class PopFruitsManager : MonoBehaviour
         }
     }
     public void ToHome() => sceneMN.LoadScene(1, true);
+
+    private void UpdtatePlayerPrefs()
+    {
+        //Get player prefs section
+        int currenTotalScore;
+        int highestScoreToCompare;
+        int highestLevelToCompare;
+
+        int newTotalScore;
+
+        currenTotalScore = PlayerPrefs.GetInt("PTotalScore");
+        highestLevelToCompare = PlayerPrefs.GetInt("PHighestLevel");
+        highestScoreToCompare = PlayerPrefs.GetInt("PHighestScore");
+
+        //Update total score
+        newTotalScore = currenTotalScore + curScore;
+        PlayerPrefs.SetInt("PTotalScore", curScore); //total of score that player have earn
+
+        //Update highest score
+        if (highestScoreToCompare < curScore) PlayerPrefs.SetInt("PHighestScore", curScore); //highest score that player can reach of all games
+
+        //Update highets level
+        if (highestLevelToCompare < level) PlayerPrefs.SetInt("PHighestLevel", level); //highest level player can reach
+    }
 }

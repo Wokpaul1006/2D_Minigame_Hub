@@ -121,7 +121,10 @@ public class HomeSC : MonoBehaviour
     {
         //sceneMN.LoadScene(5, true);
     }
-    public void ToCrosslane() => sceneMN.LoadScene(6, true);
+    public void ToCrosslane()
+    {
+        //sceneMN.LoadScene(6, true);
+    }
     public void ToDigIt()
     {
         //sceneMN.LoadScene(5, true);

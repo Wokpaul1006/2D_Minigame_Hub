@@ -28,19 +28,19 @@ public class FruitsSC : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        manager.CountSocre();
+        manager.CountScore();
         Destroy(gameObject);
     }
 
     private void OnMouseDrag()
     {
-        manager.CountSocre();
+        manager.CountScore();
         Destroy(gameObject);
     }
 
     private void OnMouseUp() 
     {
-        manager.CountSocre();
+        manager.CountScore();
         Destroy(gameObject);
     }
 }

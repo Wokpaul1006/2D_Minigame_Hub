@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class UtopiaManager : MonoBehaviour
 {
@@ -189,4 +190,28 @@ public class UtopiaManager : MonoBehaviour
     }
     private void IncreaseLevel() => curLevel++;
     private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 5);
+
+    private void UpdtatePlayerPrefs()
+    {
+        //Get player prefs section
+        int currenTotalScore;
+        int highestScoreToCompare;
+        int highestLevelToCompare;
+
+        int newTotalScore;
+
+        currenTotalScore = PlayerPrefs.GetInt("PTotalScore");
+        highestLevelToCompare = PlayerPrefs.GetInt("PHighestLevel");
+        highestScoreToCompare = PlayerPrefs.GetInt("PHighestScore");
+
+        //Update total score
+        newTotalScore = currenTotalScore + curScore;
+        PlayerPrefs.SetInt("PTotalScore", curScore); //total of score that player have earn
+
+        //Update highest score
+        if (highestScoreToCompare < curScore) PlayerPrefs.SetInt("PHighestScore", curScore); //highest score that player can reach of all games
+
+        //Update highets level
+        if (highestLevelToCompare < curLevel) PlayerPrefs.SetInt("PHighestLevel", curLevel); //highest level player can reach
+    }
 }
