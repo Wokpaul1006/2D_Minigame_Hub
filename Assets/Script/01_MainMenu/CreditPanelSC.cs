@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Accessibility;
 using UnityEngine.UI;
+using static System.Net.WebRequestMethods;
 
 public class CreditPanelSC : MonoBehaviour
 {
@@ -14,12 +15,12 @@ public class CreditPanelSC : MonoBehaviour
     [SerializeField] Text descriptionTxt05;
     [SerializeField] Text descriptionTxt06;
 
-    private string urlYTB;
-    private string urlTwitter;
-    private string urlFacebook;
-    private string urlWebsite;
-    private string urlIG;
-    private string urlTiktok;
+    private string urlYTB = "https://www.youtube.com/channel/UCIzq6IKOnDm6a1_azxVYlFQ";
+    private string urlTwitter = "https://twitter.com/SadekGame15769";
+    private string urlFacebook = "https://www.facebook.com/people/Sadek-Game-Studio/100083454556637/";
+    private string urlWebsite = "https://sadekgame.wordpress.com/";
+    private string urlIG = "";
+    private string urlTiktok = "https://www.tiktok.com/@sadekgamestudio23";
 
     #region Credits Handlers
     public void OnShowGameCredits()
@@ -50,5 +51,6 @@ public class CreditPanelSC : MonoBehaviour
     public void ToTwitter() => Application.OpenURL(urlTwitter);
     public void ToTikTok() => Application.OpenURL(urlTiktok);   
     public void ToWebsite() => Application.OpenURL(urlWebsite);
+    public void ToYTB() => Application.OpenURL(urlYTB);
     #endregion
 }
