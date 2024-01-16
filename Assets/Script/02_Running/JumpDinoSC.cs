@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class JumpDinoSC : MonoBehaviour
 {
+    [SerializeField] AudioSource jumpSFX;
     [SerializeField] JumpManager manager;
     [HideInInspector] Rigidbody2D rb;
     [HideInInspector] SpriteRenderer apparance;
@@ -31,6 +32,7 @@ public class JumpDinoSC : MonoBehaviour
     {
         rb.AddForce(transform.up * jumpSpd, ForceMode2D.Impulse);
         allowJump = false;
+        jumpSFX.Play();
         dinoAnim.SetBool("isJump", true);
     }
     private void OnCollisionEnter2D(Collision2D collision)

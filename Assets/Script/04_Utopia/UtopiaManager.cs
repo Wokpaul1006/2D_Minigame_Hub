@@ -24,6 +24,7 @@ public class UtopiaManager : MonoBehaviour
     private int gameState; //Show state of the game. 0 is idle, 1 is in-play, 2 is end
 
     //Specific zone
+    [SerializeField] AudioSource jumpEffect;
     [SerializeField] List<GameObject> stepList = new List<GameObject>();
     [SerializeField] UtopiaCharSC character;
     [SerializeField] GameObject theTide;
@@ -150,6 +151,7 @@ public class UtopiaManager : MonoBehaviour
     public void ToHome() => sceneMN.LoadScene(1, true);
     public void OnJump()
     {
+        jumpEffect.Play();
         character.isJump = true;
         DecideStepSpawn();
         SettingNewTargetPos();

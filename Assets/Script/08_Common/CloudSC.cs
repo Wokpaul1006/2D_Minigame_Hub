@@ -12,13 +12,10 @@ public class CloudSC : MonoBehaviour
     }
     private IEnumerator Activities()
     {
-        yield return new WaitForSeconds(1);
-        transform.position -= Vector3.right;
+        yield return new WaitForSeconds(0.1f);
+        transform.position -= new Vector3(0.1f, 0, 0);
         countToDead++;
-        if(countToDead >= 6)
-        {
-            Destroy(gameObject);
-        }
+        if(countToDead >= 60) Destroy(gameObject);
         StartCoroutine(Activities()); 
     }
 }

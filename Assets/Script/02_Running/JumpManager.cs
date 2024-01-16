@@ -59,6 +59,7 @@ public class JumpManager : MonoBehaviour
         DecideTimeSpawn(curLevel);
         StartCoroutine(OnWaitToSpawnObstacle(delaySpawnTime));
         StartCoroutine(SpawnClound());
+        StartCoroutine(GroundMovement());
 
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
@@ -90,20 +91,28 @@ public class JumpManager : MonoBehaviour
     private IEnumerator SpawnClound()
     {
         yield return new WaitForSeconds(2);
-        int randY = Random.RandomRange(-1, 5);
+        int randY = Random.Range(-1, 5);
         Instantiate(cloundList[Random.Range(0, 2)], new Vector3(4, randY, 0), Quaternion.identity);
         StartCoroutine(SpawnClound());
     }
-    private void GroundMovement()
+    private IEnumerator GroundMovement()
     {
-        if(ground.transform.position.x <= -8)
+        yield return new WaitForSeconds(0.1f);
+        if(gameStage == 1)
         {
-            ground.transform.position = new Vector3(8, -4, 0);
-        }
-        else
+            if (ground.transform.position.x <= -8)
+            {
+                ground.transform.position = new Vector3(8, -4, 0);
+            }
+            else
+            {
+                ground.transform.position += Vector3.left;
+            }
+        }else if(gameStage == 2)
         {
-            ground.transform.position += Vector3.left;
+            StopCoroutine(GroundMovement());
         }
+        StartCoroutine(GroundMovement());
     }
     private void DecideTimeSpawn(int lvl)
     {
@@ -175,7 +184,7 @@ public class JumpManager : MonoBehaviour
             UpdtatePlayerPrefs();
         }
         UpdateOnScreenSecond();
-        GroundMovement();
+        //GroundMovement();
     }
 
     private void UpdtatePlayerPrefs()
