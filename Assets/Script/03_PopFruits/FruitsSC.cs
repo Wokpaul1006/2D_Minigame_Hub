@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class FruitsSC : MonoBehaviour
 {
     [SerializeField] PopFruitsManager manager;
+    [SerializeField] List<Sprite> spritesEggs = new List<Sprite>();
     private int countDead;
 
     private void Start()
@@ -26,21 +27,41 @@ public class FruitsSC : MonoBehaviour
         }
         StartCoroutine(CountToDeath());
     }
+    IEnumerator CountToDisappear()
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+        StartCoroutine(CountToDisappear());
+    }
     private void OnMouseDown()
     {
+        manager.PlayPopSound();
+        ChangeApparance();
         manager.CountScore();
-        Destroy(gameObject);
+        StartCoroutine(CountToDisappear());
     }
 
     private void OnMouseDrag()
     {
+        manager.PlayPopSound();
+        ChangeApparance();
         manager.CountScore();
-        Destroy(gameObject);
-    }
+        StartCoroutine(CountToDisappear());
 
-    private void OnMouseUp() 
-    {
-        manager.CountScore();
-        Destroy(gameObject);
     }
+    private void OnMouseUp()
+    {
+        manager.PlayPopSound();
+        ChangeApparance();
+        manager.CountScore();
+        StartCoroutine(CountToDisappear());
+    }
+    private void OnMouseEnter()
+    {
+        manager.PlayPopSound();
+        ChangeApparance();
+        manager.CountScore();
+        StartCoroutine(CountToDisappear());
+    }
+    private void ChangeApparance() => gameObject.GetComponent<Image>().sprite = spritesEggs[1];
 }

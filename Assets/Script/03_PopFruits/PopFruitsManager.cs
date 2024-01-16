@@ -9,7 +9,7 @@ public class PopFruitsManager : MonoBehaviour
 {
     //No. of Game" #02
     //Rule:
-    //Player pop the fruit fall from the spawner, if miss more tha 5 fruist, game end.
+    //Player pop the eggs fall from the spawner, if miss more than 5 eggs, game end.
 
     //Common zone
     [HideInInspector] SceneSC sceneMN = new SceneSC();
@@ -22,17 +22,19 @@ public class PopFruitsManager : MonoBehaviour
     private int gameState;
 
     //Specific Zone
-    [SerializeField] SpawnerSC spawner;
+    [SerializeField] AudioSource popSFX;
     [SerializeField] Transform parent;
     [SerializeField] Text lostFruits;
-    [SerializeField] List<GameObject> fruits = new List<GameObject>();
+    [SerializeField] List<GameObject> birdsList = new List<GameObject>();
+    [SerializeField] List<GameObject> fruitsList = new List<GameObject>();
     [HideInInspector] public int missedFruits;
 
     private int rand, level, countSeconds, lvlMilestone, curScore;
+    private int randBird;
     private float delaySpawnTime, baseDelayTime; //This variable base on current level
-    private Vector3 spawnerTrans;
     private void Start()
     {
+        DecideToSpawnBirds();
         SettingStart();
 
         #region Countdown Start Handle
@@ -40,7 +42,7 @@ public class PopFruitsManager : MonoBehaviour
         else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
         #endregion
 
-        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     void SettingStart()
     {
@@ -72,15 +74,22 @@ public class PopFruitsManager : MonoBehaviour
         StartCoroutine(StartCoundown());
     }
     #endregion
-
+    
     #region Handle UIs
+    public void ToHome() => sceneMN.LoadScene(1, true);
     private void UpdateLvlText(int lvl) => lvlTxt.text = lvl.ToString();
     private void UpdateTextScore(int curScoreing) => scoreTxt.text = curScoreing.ToString();
     private void UpdateMissedFruitText() => lostFruits.text = missedFruits.ToString();
     #endregion
 
-    #region Handle gamplay logics
-    void UpdateLevel(int lvl) => level = lvl;
+    #region Handle gamplay & logics
+    private void DecideToSpawnBirds()
+    {
+        randBird = Random.Range(0, birdsList.Count);
+        Instantiate(birdsList[randBird], new Vector3(0, 2, 0), Quaternion.identity);
+    }
+    public void PlayPopSound() => popSFX.Play();
+    private void UpdateLevel(int lvl) => level = lvl;
     public void UpdateGameState(int state)
     {
         gameState = state;
@@ -88,6 +97,37 @@ public class PopFruitsManager : MonoBehaviour
         {
             pausePnl.ShowPanel(true);
             StopAllCoroutines();
+        }
+    }
+    private void OnCheckLevel()
+    {
+        if (level == 1)
+        {
+            DecideDelaySpawn();
+            birdsList[randBird].GetComponent<SpawnerSC>().SpeedUp(level);
+        }
+        else
+        {
+            level++;
+            birdsList[randBird].GetComponent<SpawnerSC>().SpeedUp(level);
+            DecideDelaySpawn();
+            UpdateLvlText(level);
+            UpdtatePlayerPrefs();
+        }
+    }
+    public void CountMiss()
+    {
+        missedFruits++;
+        UpdateMissedFruitText();
+        if (missedFruits >= 10) pausePnl.ShowPanel(true);
+    }
+    public void CountScore()
+    {
+        curScore++;
+        UpdateTextScore(curScore);
+        if (curScore >= 10)
+        {
+            OnCheckLevel();
         }
     }
     #endregion
@@ -104,12 +144,10 @@ public class PopFruitsManager : MonoBehaviour
     private void OnSpawnFruits()
     {
         RandFruitToSpawn();
-        GetSpawnerPos();
-        Instantiate(fruits[rand], spawnerTrans, Quaternion.identity);
+        Instantiate(fruitsList[rand], birdsList[randBird].transform.position, Quaternion.identity);
         Invoke("OnSpawnFruits", delaySpawnTime);
     }
-    private void RandFruitToSpawn() => rand = Random.Range(0, fruits.Count);
-    private void GetSpawnerPos() => spawnerTrans = spawner.transform.position;
+    private void RandFruitToSpawn() => rand = Random.Range(0, fruitsList.Count);
     private void DecideDelaySpawn()
     {
         if (level == 1)
@@ -119,39 +157,7 @@ public class PopFruitsManager : MonoBehaviour
     }
     #endregion
 
-    private void OnCheckLevel()
-    {
-        if(level == 1)
-        {
-            DecideDelaySpawn();
-            spawner.SpeedUp(level);
-        }
-        else
-        {
-            level++;
-            spawner.SpeedUp(level);
-            DecideDelaySpawn();
-            UpdateLvlText(level);
-            UpdtatePlayerPrefs();
-        }
-    }
-    public void CountMiss()
-    {
-        missedFruits++;
-        UpdateMissedFruitText();
-        if(missedFruits >= 10) pausePnl.ShowPanel(true);
-    }
-    public void CountScore() 
-    {
-        curScore++;
-        UpdateTextScore(curScore); 
-        if(curScore >= 10)
-        {
-            OnCheckLevel();
-        }
-    }
-    public void ToHome() => sceneMN.LoadScene(1, true);
-
+    #region Backend Activities
     private void UpdtatePlayerPrefs()
     {
         //Get player prefs section
@@ -175,4 +181,5 @@ public class PopFruitsManager : MonoBehaviour
         //Update highets level
         if (highestLevelToCompare < level) PlayerPrefs.SetInt("PHighestLevel", level); //highest level player can reach
     }
+    #endregion
 }
