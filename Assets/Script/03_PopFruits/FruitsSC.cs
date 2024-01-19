@@ -9,14 +9,20 @@ public class FruitsSC : MonoBehaviour
     [SerializeField] PopFruitsManager manager;
     [SerializeField] List<Sprite> spritesEggs = new List<Sprite>();
     private int countDead;
+    private Vector3 rotBody = new Vector3(0, 0, 1);
 
     private void Start()
     {
+        //gameObject.GetComponent<SpriteRenderer>().sprite = spritesEggs[0];
         manager = GameObject.Find("PopFruitManager").GetComponent<PopFruitsManager>();
         countDead = 0;
         StartCoroutine(CountToDeath());
     }
-    IEnumerator CountToDeath()
+    private void Update()
+    {
+        SelfRot();
+    }
+    private IEnumerator CountToDeath()
     {
         yield return new WaitForSeconds(1);
         countDead++;
@@ -27,12 +33,17 @@ public class FruitsSC : MonoBehaviour
         }
         StartCoroutine(CountToDeath());
     }
-    IEnumerator CountToDisappear()
+    private IEnumerator CountToDisappear()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Destroy(gameObject);
         StartCoroutine(CountToDisappear());
     }
+    private void ChangeApparance() => gameObject.GetComponent<SpriteRenderer>().sprite = spritesEggs[1];
+    private void SelfRot() => transform.Rotate(rotBody);
+
+
+    #region Handle Touch Screen
     private void OnMouseDown()
     {
         manager.PlayPopSound();
@@ -40,28 +51,5 @@ public class FruitsSC : MonoBehaviour
         manager.CountScore();
         StartCoroutine(CountToDisappear());
     }
-
-    private void OnMouseDrag()
-    {
-        manager.PlayPopSound();
-        ChangeApparance();
-        manager.CountScore();
-        StartCoroutine(CountToDisappear());
-
-    }
-    private void OnMouseUp()
-    {
-        manager.PlayPopSound();
-        ChangeApparance();
-        manager.CountScore();
-        StartCoroutine(CountToDisappear());
-    }
-    private void OnMouseEnter()
-    {
-        manager.PlayPopSound();
-        ChangeApparance();
-        manager.CountScore();
-        StartCoroutine(CountToDisappear());
-    }
-    private void ChangeApparance() => gameObject.GetComponent<Image>().sprite = spritesEggs[1];
+    #endregion
 }

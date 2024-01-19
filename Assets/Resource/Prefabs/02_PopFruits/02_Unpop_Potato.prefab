@@ -100,7 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  spritesEggs: []
+  spritesEggs:
+  - {fileID: 21300000, guid: 32e585c4381ecd34fa1f6af66f0b3d59, type: 3}
+  - {fileID: 21300000, guid: 463788ae9e5f93e42abcd0658ebe2c72, type: 3}
 --- !u!50 &3447306047760214301
 Rigidbody2D:
   serializedVersion: 4

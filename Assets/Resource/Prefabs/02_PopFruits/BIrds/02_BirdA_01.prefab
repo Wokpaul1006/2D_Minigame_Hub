@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3092458436271649235}
   - component: {fileID: -8656012054659682743}
   - component: {fileID: 7932006713853343633}
-  - component: {fileID: 6701140505717924761}
   m_Layer: 0
   m_Name: 02_BirdA_01
   m_TagString: Untagged
@@ -121,7 +120,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f916e15277ca12478c4335403a4fc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _readySpawn: 0
+  fruitsList:
+  - {fileID: 7700910110906596176, guid: 063b9bbc21962624fbd3d1cc50c7dd1b, type: 3}
+  - {fileID: 1725062938399226884, guid: 4d32ecea73d78034b94e59aed98953a6, type: 3}
+  - {fileID: 3041069116507594119, guid: 20ecaf9962b23074680280cde92411d5, type: 3}
+  - {fileID: 7101074365988313844, guid: fdeae0980cd7ed74096447fdc10b2b83, type: 3}
+  - {fileID: 7122238507873954734, guid: 0158a49ce8e52574986029f885c2bc1d, type: 3}
+  - {fileID: 6595874153665731558, guid: 47fb60d1195f08547b8a4cdc79678dcc, type: 3}
+  - {fileID: 2252851831150197308, guid: 5e0b654ed5b716940854cadcbb009d5f, type: 3}
+  - {fileID: 8421599181373559219, guid: 740521b4afb89c347be45bd956bfe7c8, type: 3}
+  - {fileID: 1496821939210561825, guid: 168ca9e76500f2248b52d3b746f94479, type: 3}
+  - {fileID: 1493340307921866939, guid: 2587a965c8a78f346937c5e9b9b1ff3d, type: 3}
 --- !u!50 &7932006713853343633
 Rigidbody2D:
   serializedVersion: 4
@@ -149,48 +158,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &6701140505717924761
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6472201262043859852}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.26, y: 6.26}
-    newSize: {x: 6.26, y: 6.26}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 6.26, y: 6.26}
-  m_EdgeRadius: 0

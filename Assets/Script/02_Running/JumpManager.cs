@@ -211,4 +211,10 @@ public class JumpManager : MonoBehaviour
         if (highestLevelToCompare < curLevel) PlayerPrefs.SetInt("PHighestLevel", curLevel); //highest level player can reach
     }
     #endregion
+
+    public void ToHome()
+    {
+        StopAllCoroutines();
+        sceneMN.LoadScene(1, true);
+    }
 }

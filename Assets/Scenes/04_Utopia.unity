@@ -1228,6 +1228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1116355053}
   - component: {fileID: 1116355054}
+  - component: {fileID: 1116355055}
   m_Layer: 0
   m_Name: UtopiaManager
   m_TagString: Untagged
@@ -1266,7 +1267,7 @@ MonoBehaviour:
   currentLevel: {fileID: 965449998}
   startCoundownTxt: {fileID: 2003067519}
   coundonwPanel: {fileID: 528982769}
-  jumpEffect: {fileID: 0}
+  jumpEffect: {fileID: 2005837099}
   stepList:
   - {fileID: 6649131518600806237, guid: 19aba76998728f54b91ba85d526e93af, type: 3}
   - {fileID: 2062554756204024187, guid: 2c8b8fafbe4d1c444905795514854f60, type: 3}
@@ -1274,6 +1275,27 @@ MonoBehaviour:
   - {fileID: 4460156924474594732, guid: c7fe8bd501c07d14281354e9c01ef692, type: 3}
   character: {fileID: 712187562}
   theTide: {fileID: 259552156}
+--- !u!320 &1116355055
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116355051}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: b6045f9a6bac44844ac64ecc10d16c72, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -367403410587514841, guid: b6045f9a6bac44844ac64ecc10d16c72, type: 2}
+    value: {fileID: 1980614198}
+  - key: {fileID: 2673212415076056267, guid: b6045f9a6bac44844ac64ecc10d16c72, type: 2}
+    value: {fileID: 1255581604}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &1197020760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1538,6 +1560,7 @@ GameObject:
   - component: {fileID: 1255581601}
   - component: {fileID: 1255581603}
   - component: {fileID: 1255581602}
+  - component: {fileID: 1255581604}
   m_Layer: 5
   m_Name: PNL_BotPnl
   m_TagString: Untagged
@@ -1563,7 +1586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -850.0001}
+  m_AnchoredPosition: {x: 0, y: -1293}
   m_SizeDelta: {x: 0, y: -1700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1255581602
@@ -1604,6 +1627,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255581600}
   m_CullTransparentMesh: 1
+--- !u!95 &1255581604
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255581600}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1386461163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2237,6 +2281,7 @@ GameObject:
   - component: {fileID: 1980614195}
   - component: {fileID: 1980614197}
   - component: {fileID: 1980614196}
+  - component: {fileID: 1980614198}
   m_Layer: 5
   m_Name: PNL_TopZone
   m_TagString: Untagged
@@ -2263,7 +2308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: 240}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1980614196
@@ -2304,6 +2349,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980614194}
   m_CullTransparentMesh: 1
+--- !u!95 &1980614198
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980614194}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1985506617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2795,6 +2861,6 @@ SceneRoots:
   - {fileID: 1116355053}
   - {fileID: 665618414}
   - {fileID: 441501544}
-  - {fileID: 1648383109}
   - {fileID: 574674225}
   - {fileID: 259552158}
+  - {fileID: 1648383109}

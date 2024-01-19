@@ -148,7 +148,11 @@ public class UtopiaManager : MonoBehaviour
         StartCoroutine(RisingTide());
     }
     #endregion
-    public void ToHome() => sceneMN.LoadScene(1, true);
+    public void ToHome()
+    {
+        StopAllCoroutines();
+        sceneMN.LoadScene(1, true);
+    }
     public void OnJump()
     {
         jumpEffect.Play();
