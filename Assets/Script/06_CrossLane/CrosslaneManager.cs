@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class CrosslaneManager : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class CrosslaneManager : MonoBehaviour
     [SerializeField] List<GameObject> spawnListRight = new List<GameObject>();
     [SerializeField] GameObject spawnLeft, spawnRight;
     [SerializeField] GameObject playerSpawn, target;
-    [SerializeField] CinemachineShot camFollow;
+    [SerializeField] CinemachineVirtualCamera camFollow;
 
     internal int curLvl; //Use this variable for entire gameplay
     private int curScore; //Use this variable for entire gameplay
@@ -53,7 +54,9 @@ public class CrosslaneManager : MonoBehaviour
         else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(CoundownToStart());
         #endregion
 
-        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        camFollow = GetComponent<CinemachineVirtualCamera>();
+
+        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     void SettingStart()
     {
@@ -61,8 +64,7 @@ public class CrosslaneManager : MonoBehaviour
         coundownNumber = 5;
         curLvl = baseLvl;
         CheckLevel(curLvl);
-        SpawnPlayer(playerSpawn.transform.position);
-        
+        SpawnPlayer(playerSpawn.transform.position);        
     }
     #region UIs side Handle Zone
     public void ToHome() => sceneMN.LoadScene(1, true);
@@ -101,7 +103,7 @@ public class CrosslaneManager : MonoBehaviour
     private void SpawnPlayer(Vector3 pos) 
     {
         //Call this every time refresh of level
-         player = Instantiate(player, pos, Quaternion.identity);
+        player = Instantiate(player, pos, Quaternion.identity);
     }
     public void LevelUp()
     {
