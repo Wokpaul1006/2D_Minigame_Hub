@@ -49,8 +49,6 @@ public class PopFruitsManager : MonoBehaviour
         UpdateGameState(0);//Idle
         UpdateLevel(1);
 
-        //delaySpawnTime = 10;
-        //lvlMilestone = 10;
         curScore = 0;
         coundownNumber = 5;
         baseDelayTime = 5;
