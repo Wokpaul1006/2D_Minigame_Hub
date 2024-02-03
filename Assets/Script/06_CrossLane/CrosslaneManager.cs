@@ -36,6 +36,7 @@ public class CrosslaneManager : MonoBehaviour
     [SerializeField] List<GameObject> spawnListRight = new List<GameObject>();
     [SerializeField] GameObject spawnLeft, spawnRight;
     [SerializeField] GameObject playerSpawn, target;
+    [SerializeField] CinemachineShot camFollow;
 
     internal int curLvl; //Use this variable for entire gameplay
     private int curScore; //Use this variable for entire gameplay
@@ -61,6 +62,7 @@ public class CrosslaneManager : MonoBehaviour
         curLvl = baseLvl;
         CheckLevel(curLvl);
         SpawnPlayer(playerSpawn.transform.position);
+        
     }
     #region UIs side Handle Zone
     public void ToHome() => sceneMN.LoadScene(1, true);
