@@ -32,10 +32,12 @@ public class CrosslaneManager : MonoBehaviour
     #endregion
 
     //Specific zone
-    [HideInInspector] Vector3 playerSpawnPos;
-    [SerializeField] List<CrossLaneSpawner> spawnList = new List<CrossLaneSpawner>();
+    [SerializeField] List<GameObject> spawnListLeft = new List<GameObject>();
+    [SerializeField] List<GameObject> spawnListRight = new List<GameObject>();
+    [SerializeField] GameObject spawnLeft, spawnRight;
+    [SerializeField] GameObject playerSpawn, target;
 
-    private int curLvl; //Use this variable for entire gameplay
+    internal int curLvl; //Use this variable for entire gameplay
     private int curScore; //Use this variable for entire gameplay
     private int baseLvl = 1;
 
@@ -50,24 +52,21 @@ public class CrosslaneManager : MonoBehaviour
         else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(CoundownToStart());
         #endregion
 
-        pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        //pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     void SettingStart()
     {
         UpdateGameState(0);//Idle
         coundownNumber = 5;
         curLvl = baseLvl;
-        playerSpawnPos = new Vector3(0, -3, 0);
-        SpawnPlayer(playerSpawnPos);
+        CheckLevel(curLvl);
+        SpawnPlayer(playerSpawn.transform.position);
     }
     #region UIs side Handle Zone
     public void ToHome() => sceneMN.LoadScene(1, true);
     void HandleUIs()
     {
-        if(curLvl == 1)
-        {
-            CoundownToStartTxt.text = coundownNumber.ToString();
-        }
+        if(curLvl == 1) CoundownToStartTxt.text = coundownNumber.ToString();
         UpdateCurrentScoreText(curScore);
         UpdateCurrentLevelText(curLvl);
     }
@@ -96,7 +95,7 @@ public class CrosslaneManager : MonoBehaviour
             UpdateGameState(1);
         }
         StartCoroutine(CoundownToStart());
-    }
+    } //This function is in use of countdown 5 to 0 at the start of the game.
     private void SpawnPlayer(Vector3 pos) 
     {
         //Call this every time refresh of level
@@ -106,10 +105,131 @@ public class CrosslaneManager : MonoBehaviour
     {
         curLvl++;
         HandleUIs();
-        SpawnPlayer(playerSpawnPos);
-        for(int i = 0; i<= spawnList.Count; i++) 
+        SpawnPlayer(playerSpawn.transform.position);
+        CheckLevel(curLvl);
+    }
+
+    private void CheckLevel(int lvl)
+    {
+        if (lvl > 0 && lvl <= 100)
         {
-            spawnList[i].UpdateDelayTime(curLvl);
+            //Generate of 4 lane
+            if (spawnListLeft != null) spawnListLeft.Clear();
+            float startPosY = 3;
+            target.transform.position = new Vector3(0, startPosY + 1, 0);
+            playerSpawn.transform.position = new Vector3(0, -(startPosY + 1), 0);
+            for (int i = 0; i < 7; i++)
+            {
+                if (i == 0)
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                else
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                startPosY -= 1;
+            }
+
+            if (lvl <= 10)
+            {
+                //Active spawner Spawner Left 1, 3
+                //Active spawner Spawner Right 2, 4
+                //Delay spawn time random between 5 - 10s
+            }
+            else if (lvl > 10 && lvl <= 20)
+            {
+                //Active spawner Spawner Left 2, 4
+                //Active spawner Spawner Right 1, 3
+                //Delay spawn time random between 2.5 - 7.5s
+            }
+            else if (lvl > 20 && lvl <= 40)
+            {
+                //Active spawner Spawner Left 1, 4
+                //Active spawner Spawner Right 2, 3
+                //Delay spawn time random between 2s - 5s
+            }
+            else if (lvl > 40 && lvl <= 80)
+            {
+                //Active spawner Spawner Left 1, 2,3, 4
+                //Active spawner Spawner Right 1,2,3,4
+                //Delay spawn time random between 5s - 10s
+            }
+            else if (lvl > 80 && lvl <= 100)
+            {
+                //Random Active spawner Spawner Left 1, 2,3, 4
+                //Random Active spawner Spawner Right 1,2,3,4
+                //Delay spawn time random between 2.5 - 7
+            }
+        }
+        else if(lvl > 100 && lvl <= 200)
+        {
+            //Generate of 8 lane
+            if (spawnListLeft != null) spawnListLeft.Clear();
+            float startPosY = 5;
+            target.transform.position = new Vector3(0, startPosY + 1, 0);
+            playerSpawn.transform.position = new Vector3(0, -(startPosY - 1), 0);
+            for (int i = 0; i < 11; i++)
+            {
+                if (i == 0)
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                else
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                startPosY -= 1;
+            }
+
+        }
+        else if(lvl > 200 && lvl <= 300)
+        {
+            //Generate of 12 lane
+            if (spawnListLeft != null) spawnListLeft.Clear();
+            float startPosY = 7;
+            target.transform.position = new Vector3(0, startPosY + 1, 0);
+            playerSpawn.transform.position = new Vector3(0, -(startPosY - 1), 0);
+            for (int i = 0; i < 15; i++)
+            {
+                if (i == 0)
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                else
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                startPosY -= 1;
+            }
+        }
+        else if(lvl > 300 && lvl <= 400)
+        {
+            //Generate of 16 lane
+            if (spawnListLeft != null) spawnListLeft.Clear();
+            float startPosY = 9;
+            target.transform.position = new Vector3(0, startPosY + 1, 0);
+            playerSpawn.transform.position = new Vector3(0, -(startPosY - 1), 0);
+            for (int i = 0; i < 19; i++)
+            {
+                if (i == 0)
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                else
+                {
+                    spawnListLeft.Add(Instantiate(spawnLeft, new Vector3(-3, startPosY, 0), Quaternion.identity));
+                    spawnListRight.Add(Instantiate(spawnRight, new Vector3(3, startPosY, 0), Quaternion.identity));
+                }
+                startPosY -= 1;
+            }
         }
     }
     #endregion

@@ -38,18 +38,17 @@ public class CrosslaneCharSC : MonoBehaviour
     {
         playerDir = dir;
         OnMoving(playerDir);
-    } 
-    private void OnCollisionEnter2D(Collision2D collision)
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Goal")
+        if (collision.gameObject.tag == "Goal")
         {
-            print("hit goal");
             mn.LevelUp();
             Destroy(gameObject);
-        }else if(collision.gameObject.tag == "Obstacle")
+        }
+        else if (collision.gameObject.tag == "Obstacle")
         {
             mn.ShowPause();
         }
     }
-
 }

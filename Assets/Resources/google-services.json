@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "492527070456",
+    "project_id": "inanimate-collection-01",
+    "storage_bucket": "inanimate-collection-01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492527070456:android:67aa69b419efa8826d5f0d",
+        "android_client_info": {
+          "package_name": "com.SDGStudio.MinigameCollection01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj4mRdH9eycI8euyxFsxz6u12JbhLQdek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

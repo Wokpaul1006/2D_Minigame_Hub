@@ -41,5 +41,5 @@ public class CarSC : MonoBehaviour
             transform.position += Vector3.left * moveSpd * Time.deltaTime;
         }
     }
-    public void UpdateSpeed(int level) => moveSpd += 0.1f;
+    public void UpdateSpeed(int level) => moveSpd = Random.Range(0.5f, 2f);
 }
