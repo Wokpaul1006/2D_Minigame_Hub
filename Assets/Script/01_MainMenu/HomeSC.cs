@@ -129,7 +129,7 @@ public class HomeSC : MonoBehaviour
     public void ExitGame() => Application.Quit();
     #endregion
 
-    #region Player Date Handle
+    #region Player Data Handle
     void CheckFirstPlay()
     {
         if (isFirstPlay())
@@ -146,5 +146,6 @@ public class HomeSC : MonoBehaviour
         if (PlayerPrefs.GetInt("HasPlayed", 0) == 0) { return true; }
         else { return false; }
     }
+    public void ClearPlayerPrefs() => PlayerPrefs.DeleteAll();
     #endregion
 }

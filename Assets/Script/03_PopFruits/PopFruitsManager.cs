@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
+using Unity.VisualScripting;
 
 public class PopFruitsManager : MonoBehaviour
 {
@@ -27,11 +28,12 @@ public class PopFruitsManager : MonoBehaviour
     [SerializeField] Text lostFruits;
     [SerializeField] List<GameObject> birdsList = new List<GameObject>();
     [HideInInspector] public int missedFruits;
+    [SerializeField] List<GameObject> cloundList = new List<GameObject>();
 
     private int rand, level, curScore;
-    //private int countSeconds, lvlMilestone;
+    private int nextLvlTarget;
     private int randBird;
-    private float delaySpawnTime, baseDelayTime; //This variable base on current level
+    private float  delaySpawnTime, baseDelayTime; //This variable base on current level
     private void Start()
     {
         DecideToSpawnBirds();
@@ -42,6 +44,7 @@ public class PopFruitsManager : MonoBehaviour
         else if (coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
         #endregion
 
+        DecideDelaySpawn(level);
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     void SettingStart()
@@ -52,10 +55,13 @@ public class PopFruitsManager : MonoBehaviour
         curScore = 0;
         coundownNumber = 5;
         baseDelayTime = 5;
+        nextLvlTarget = 10;
 
         UpdateLvlText(level);
         UpdateTextScore(curScore);
         UpdateMissedFruitText();
+
+        StartCoroutine(SpawnClound());
     }
     #region Handle Start Countdown
     private IEnumerator StartCoundown()
@@ -67,7 +73,8 @@ public class PopFruitsManager : MonoBehaviour
         {
             coundonwPanel.SetActive(false);
             UpdateGameState(1);
-            StartGameplay();
+            StopCoroutine(StartCoundown());
+
         }
         StartCoroutine(StartCoundown());
     }
@@ -85,6 +92,13 @@ public class PopFruitsManager : MonoBehaviour
     #endregion
 
     #region Handle gamplay & logics
+    private IEnumerator SpawnClound()
+    {
+        yield return new WaitForSeconds(2);
+        int randY = Random.Range(-3, 3);
+        Instantiate(cloundList[Random.Range(0, 2)], new Vector3(4, randY, 0), Quaternion.identity);
+        StartCoroutine(SpawnClound());
+    }
     private void DecideToSpawnBirds()
     {
         randBird = Random.Range(0, birdsList.Count);
@@ -95,26 +109,37 @@ public class PopFruitsManager : MonoBehaviour
     public void UpdateGameState(int state)
     {
         gameState = state;
-        if (gameState == 2)
+        switch (gameState)
         {
-            pausePnl.ShowPanel(true);
-            StopAllCoroutines();
+            case 1:
+                OnCheckLevel(level);
+                coundonwPanel.SetActive(false);
+                break;
+            case 2:
+                ShowPause();
+                StopAllCoroutines();
+                break;
         }
     }
-    private void OnCheckLevel()
+    public void ShowPause()
     {
-        if (level == 1)
+        pausePnl.ShowPanel(true);
+        StopAllCoroutines();
+    }
+    private void OnCheckLevel(int curLvl)
+    {
+        if(curLvl != 1)
         {
-            DecideDelaySpawn();
-            birdsList[randBird].GetComponent<SpawnerSC>().SpeedUp(level);
+            birdsList[randBird].GetComponent<SpawnerSC>().SpeedUp(level, delaySpawnTime);
+            DecideDelaySpawn(level);
+            UpdateLvlText(level); //Update text
+            UpdateLevel(level); //Update of ingame
+            UpdtatePlayerPrefs(); 
         }
         else
         {
-            level++;
-            birdsList[randBird].GetComponent<SpawnerSC>().SpeedUp(level);
-            DecideDelaySpawn();
-            UpdateLvlText(level);
-            UpdtatePlayerPrefs();
+            DecideDelaySpawn(level);
+            birdsList[randBird].GetComponent<SpawnerSC>().SpeedUp(level, delaySpawnTime);
         }
     }
     public void CountMiss()
@@ -127,28 +152,26 @@ public class PopFruitsManager : MonoBehaviour
             pausePnl.ShowPanel(true);
         }
     }
+    private void DecideNextLevelTarget() => nextLvlTarget = (level * 10) + level * 2;
     public void CountScore()
     {
         curScore++;
         UpdateTextScore(curScore);
-        if (curScore >= 10) OnCheckLevel();
+        if(curScore == nextLvlTarget) 
+        {
+            level++;
+            DecideNextLevelTarget(); //Once player reach the target score of current Lvl, this functin will active to caculate the new target.
+            OnCheckLevel(level); //After the new target is caculated, run this function to update whole gameplay
+        }
     }
     #endregion
 
     #region Spawning Fruits
-    void StartGameplay()
+    private void DecideDelaySpawn(int lvl)
     {
-        if(gameState == 1)
-        {
-            OnCheckLevel();
-        }
-    }
-    private void DecideDelaySpawn()
-    {
-        if (level == 1)
-            delaySpawnTime = baseDelayTime;
-        else
-            delaySpawnTime -= 0.1f;
+        if (lvl == 1) delaySpawnTime = baseDelayTime;
+        else if (lvl > 1 && level <= 21) delaySpawnTime -= 0.1f;
+        else lvl = Random.Range(2, 5);
     }
     #endregion
 

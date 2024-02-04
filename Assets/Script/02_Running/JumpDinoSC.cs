@@ -10,6 +10,7 @@ public class JumpDinoSC : MonoBehaviour
     [HideInInspector] Rigidbody2D rb;
     [HideInInspector] SpriteRenderer apparance;
     [SerializeField] Animator dinoAnim;
+    private SoundSC sound;
     private Vector3 originPos;
     public bool allowJump;
     public bool isGrounded;
@@ -22,6 +23,7 @@ public class JumpDinoSC : MonoBehaviour
 
         //manager = GameObject.Find("RunningManager").GetComponent<JumpManager>();
 
+        sound = GameObject.Find("SoundMN").GetComponent<SoundSC>();
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -32,7 +34,10 @@ public class JumpDinoSC : MonoBehaviour
     {
         rb.AddForce(transform.up * jumpSpd, ForceMode2D.Impulse);
         allowJump = false;
-        jumpSFX.Play();
+        if (IsAllowSFX())
+        {
+            jumpSFX.Play();
+        }
         dinoAnim.SetBool("isJump", true);
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -48,5 +53,12 @@ public class JumpDinoSC : MonoBehaviour
             isGrounded = true;
             dinoAnim.SetBool("isJump", false);
         }
+    }
+    private bool IsAllowSFX()
+    {
+        if (sound.allowSFX)
+        {
+            return true;
+        } else return false;
     }
 }

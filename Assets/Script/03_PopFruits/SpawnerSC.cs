@@ -8,7 +8,7 @@ public class SpawnerSC : MonoBehaviour
     private int _moveDir;
     private float _moveSpd;
     private int randF;
-    private int curLvl;
+    private float delaySpawn;
 
     [SerializeField] List<GameObject> fruitsList = new List<GameObject>();
     Vector3 curPos;
@@ -16,7 +16,8 @@ public class SpawnerSC : MonoBehaviour
     void SetUpStart()
     {
         _moveDir = 0;
-        StartCoroutine(OnSpawnFruits());
+        delaySpawn = 5;
+        StartCoroutine(OnSpawnFruits(delaySpawn));
     }
     void Update() => Movementation();
     private void Movementation()
@@ -28,11 +29,14 @@ public class SpawnerSC : MonoBehaviour
         GetCurPos();
         ChangeDir();
     }
-    public void SpeedUp(float level) 
+
+    private void OverideDelaySpawn(float delay) => delaySpawn = delay;
+    public void SpeedUp(float level, float delay) 
     {
         //This function allow Spawner increase it's speed
         if (level == 1) _moveSpd = level*10;
         else if(level > 1) _moveSpd = ((level * 2) / 2)*10;
+        OverideDelaySpawn(delay);
     } 
     private void ChangeDir()
     {
@@ -54,10 +58,10 @@ public class SpawnerSC : MonoBehaviour
         return randF;
     }
     private void GetCurPos() => curPos = transform.position;
-    private IEnumerator OnSpawnFruits()
+    private IEnumerator OnSpawnFruits(float delay)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(delay);
         SpawnFruits();
-        StartCoroutine(OnSpawnFruits());
+        StartCoroutine(OnSpawnFruits(delay));
     }
 }

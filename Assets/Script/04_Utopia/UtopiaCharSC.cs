@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
 
@@ -62,7 +63,6 @@ public class UtopiaCharSC : MonoBehaviour
             {
                 //Case of move backward
                 transform.Translate(new Vector3(-1, 0, 0) * Time.deltaTime * forwardSpd);
-
             }
         }
     }

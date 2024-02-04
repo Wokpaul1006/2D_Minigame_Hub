@@ -116,12 +116,8 @@ public class JumpManager : MonoBehaviour
     }
     private void DecideTimeSpawn(int lvl)
     {
-        if (lvl == 1)
-            delaySpawnTime = 5f;
-        else if (lvl > 1 && lvl <= 21)
-        {
-            delaySpawnTime -= 0.1f; 
-        }
+        if (lvl == 1) delaySpawnTime = 5f;
+        else if (lvl > 1 && lvl <= 21) delaySpawnTime -= 0.1f;
         else lvl = Random.Range(2, 5);
     }
     public void UpdateGameState(int state)
@@ -140,7 +136,7 @@ public class JumpManager : MonoBehaviour
                 break;
         }
     }
-    private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 10);
+    private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 10) + curLevel * 2;
     private void IncreaseInGameScore() => ingameScore++;
     private void IncreaseInGameLevel() => curLevel++;
     #endregion
@@ -154,18 +150,15 @@ public class JumpManager : MonoBehaviour
             dino.allowJump = true;
         }
     }
-    private void SpawnObjects()
-    {
-        objApparance = Random.Range(0, listObts.Count);
-        Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
-    }
     private IEnumerator OnWaitToSpawnObstacle(float delay)
     {
         yield return new WaitForSeconds(delaySpawnTime);
+        if(curLevel < 10) objApparance = Random.Range(0, listObts.Count - 3);
+        else objApparance = Random.Range(0, listObts.Count);
 
-        objApparance = Random.Range(0, listObts.Count);
-        Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
-
+        if (objApparance == 10 || objApparance == 9 || objApparance == 11) Instantiate(listObts[objApparance], new Vector3(spawnerPos.x, Random.Range(-2, 2), spawnerPos.z), Quaternion.Euler(0,180,0));
+        else Instantiate(listObts[objApparance], spawnerPos, Quaternion.identity);
+        
         StartCoroutine(OnWaitToSpawnObstacle(delay));
     }
     private IEnumerator CountToScore()

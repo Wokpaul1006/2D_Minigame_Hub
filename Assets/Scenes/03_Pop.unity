@@ -2107,6 +2107,10 @@ MonoBehaviour:
   - {fileID: 1539776751156600849, guid: 0dad39bf468ebf7478f8c368bf11ced0, type: 3}
   - {fileID: 7859357089753806812, guid: 4eb59e1a81b93064eb7c9622e6d6a1a6, type: 3}
   missedFruits: 0
+  cloundList:
+  - {fileID: 6524820767625771585, guid: 00b2fdd40181cce499725e41b5aa5213, type: 3}
+  - {fileID: 898083470294315106, guid: 1284260aed00e9547b28135dada1ae8e, type: 3}
+  - {fileID: 8588733325933629731, guid: b733f2853e675314f9167cdbf72aa136, type: 3}
 --- !u!4 &1882048327
 Transform:
   m_ObjectHideFlags: 0
@@ -2197,15 +2201,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

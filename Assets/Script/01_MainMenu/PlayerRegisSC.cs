@@ -39,6 +39,8 @@ public class PlayerRegisSC : MonoBehaviour
         PlayerPrefs.SetInt("PTotalScore", 0);
         PlayerPrefs.SetInt("PHighestScore", 0);
         PlayerPrefs.SetInt("PHighestLevel", 0);
+        PlayerPrefs.SetInt("soundState", 1);
+        PlayerPrefs.SetInt("sfxState", 1);
         homeSC.LoadUser();
         gameObject.SetActive(false);
         

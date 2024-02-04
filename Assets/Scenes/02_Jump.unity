@@ -356,15 +356,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1217,6 +1217,12 @@ MonoBehaviour:
   - {fileID: 8743649203007994892, guid: d6958955078181e409478ec99eb0c8a6, type: 3}
   - {fileID: 2454131675581900736, guid: 8433b4d456f40f749a66642df0bd7639, type: 3}
   - {fileID: 6872309455984554499, guid: 7d3fa1895ea82234082181f8042858c3, type: 3}
+  - {fileID: 6872309455984554499, guid: 7d3fa1895ea82234082181f8042858c3, type: 3}
+  - {fileID: 474202858625828885, guid: 7907bb20d79c51c45bfc6ef48f58178f, type: 3}
+  - {fileID: 1803658697928371707, guid: ba7ffe70a4a6ea946bb0f50be8fe036d, type: 3}
+  - {fileID: 6472201262043859852, guid: efe3890c3ac48b84789a7bd8f15df1d4, type: 3}
+  - {fileID: 1539776751156600849, guid: 2ae10657f9df8924abda1e2f87ad80b7, type: 3}
+  - {fileID: 7859357089753806812, guid: e08a0a7899a12c14bbd200e57fe8e604, type: 3}
   currentTimeSurvive: {fileID: 317986720}
   obstacleSpawner: {fileID: 2009549416}
 --- !u!320 &1139970538

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2912915939601081706}
   - component: {fileID: 7772880724352183228}
   - component: {fileID: 6304166859738638950}
+  - component: {fileID: 407776697346533881}
   m_Layer: 0
   m_Name: Foot_Step_C
   m_TagString: Stage
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 40.96, y: 10.8}
   m_EdgeRadius: 0
+--- !u!114 &407776697346533881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760858742315719845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6ae9677373fda4b9acef4de5cd6f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

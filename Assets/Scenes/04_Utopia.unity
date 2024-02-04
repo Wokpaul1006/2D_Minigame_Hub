@@ -405,8 +405,8 @@ GameObject:
   m_Component:
   - component: {fileID: 259552158}
   - component: {fileID: 259552157}
-  - component: {fileID: 259552159}
   - component: {fileID: 259552160}
+  - component: {fileID: 259552161}
   m_Layer: 0
   m_Name: OBJ_Deadline
   m_TagString: Deadline
@@ -454,7 +454,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 059be5f7ea5b7c24fb19573cca4bdcf6, type: 3}
   m_Color: {r: 0, g: 0.32314444, b: 1, a: 0.627451}
   m_FlipX: 0
@@ -481,18 +481,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &259552159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 259552156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab8b6effd4ef3c45a14f30e03597a63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &259552160
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -538,6 +526,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.24, y: 1.9096231}
   m_EdgeRadius: 0
+--- !u!95 &259552161
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259552156}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89ecb0e5c93f21844a5b05e38da6c19f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &285067840
 GameObject:
   m_ObjectHideFlags: 3
@@ -870,9 +879,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5087994523819992554, guid: 2792fe6af8343fb419a15f0e4da5bc7c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8200490131674687662, guid: 2792fe6af8343fb419a15f0e4da5bc7c, type: 3}
       propertyPath: m_Name
       value: OBJ_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200490131674687662, guid: 2792fe6af8343fb419a15f0e4da5bc7c, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1275,6 +1292,10 @@ MonoBehaviour:
   - {fileID: 4460156924474594732, guid: c7fe8bd501c07d14281354e9c01ef692, type: 3}
   character: {fileID: 712187562}
   theTide: {fileID: 259552156}
+  cloundList:
+  - {fileID: 6524820767625771585, guid: 00b2fdd40181cce499725e41b5aa5213, type: 3}
+  - {fileID: 898083470294315106, guid: 1284260aed00e9547b28135dada1ae8e, type: 3}
+  - {fileID: 8588733325933629731, guid: b733f2853e675314f9167cdbf72aa136, type: 3}
 --- !u!320 &1116355055
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -1850,7 +1871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2324,15 +2345,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

@@ -25,11 +25,13 @@ public class UtopiaManager : MonoBehaviour
 
     //Specific zone
     [SerializeField] AudioSource jumpEffect;
+    private SoundSC sound;
     [SerializeField] List<GameObject> stepList = new List<GameObject>();
     [SerializeField] UtopiaCharSC character;
     [SerializeField] GameObject theTide;
     [HideInInspector] Vector3 startPos = new Vector3(-2,0, 0);
     [HideInInspector] Vector3 nextStepPos;
+    [SerializeField] List<GameObject> cloundList = new List<GameObject>();
 
     private int baseScore = 0;
     private int baseLevel = 1;
@@ -40,7 +42,7 @@ public class UtopiaManager : MonoBehaviour
 
     //Scoring variables
     int curScore;
-    int curLevel;
+    internal int curLevel;
     private int nextLvlTarget;
     void Start()
     {
@@ -51,7 +53,7 @@ public class UtopiaManager : MonoBehaviour
         if (coundownNumber == 5 && coundownNumber >= 0) StartCoroutine(StartCoundown());
         else if(coundownNumber == 0 || coundownNumber <= 0) StopCoroutine(StartCoundown());
         #endregion
-
+        sound = GameObject.Find("SoundMN").GetComponent<SoundSC>();
         pausePnl = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
     }
     private void SettingStart()
@@ -69,6 +71,7 @@ public class UtopiaManager : MonoBehaviour
         nextLvlTarget = 10;
 
         DecideStepSpawn();
+        StartCoroutine(SpawnClound());
     }
 
     #region Internal Handle
@@ -103,21 +106,22 @@ public class UtopiaManager : MonoBehaviour
     #endregion
 
     #region Gameplay Handle
+    private IEnumerator SpawnClound()
+    {
+        yield return new WaitForSeconds(2);
+        float randY = character.transform.position.y + Random.Range(-1, 5);
+        Instantiate(cloundList[Random.Range(0, 2)], new Vector3(4, randY, 0), Quaternion.identity);
+        StartCoroutine(SpawnClound());
+    }
     private void DecideStepSpawn()
     {
         RandSpawnStep();
         RandPosStepSpawn();
 
         int temp = randStepOder % 2;
-        if (temp == 1.25f)
-        {
-            Instantiate(stepList[randStepOder], new Vector2(randStepX + 2f, randStepY), Quaternion.identity);
-        }
-        else
-        {
-            Instantiate(stepList[randStepOder], new Vector2(randStepX - 2f, randStepY), Quaternion.identity);
-        }
-        
+        if (temp == 1.25f) Instantiate(stepList[randStepOder], new Vector2(randStepX + 2f, randStepY), Quaternion.identity);
+        else Instantiate(stepList[randStepOder], new Vector2(randStepX - 2f, randStepY), Quaternion.identity);
+
     }
     private void RandSpawnStep() => randStepOder = Random.Range(0, 3);
     private void RandPosStepSpawn()
@@ -144,7 +148,7 @@ public class UtopiaManager : MonoBehaviour
     private IEnumerator RisingTide()
     {
         yield return new WaitForSeconds(2);
-        theTide.transform.position += new Vector3(0,0.01f,0);
+        theTide.transform.position += new Vector3(0,0.1f,0);
         StartCoroutine(RisingTide());
     }
     #endregion
@@ -155,7 +159,10 @@ public class UtopiaManager : MonoBehaviour
     }
     public void OnJump()
     {
-        jumpEffect.Play();
+        if (IsAllowSFX())
+        {
+            jumpEffect.Play();
+        }
         character.isJump = true;
         DecideStepSpawn();
         SettingNewTargetPos();
@@ -191,12 +198,20 @@ public class UtopiaManager : MonoBehaviour
         {
             IncreaseLevel();
             DecideNextLevelTarget();
+            UpdtatePlayerPrefs();
         }
         HandleUIs();
     }
     private void IncreaseLevel() => curLevel++;
     private void DecideNextLevelTarget() => nextLvlTarget = (curLevel * 5);
-
+    private bool IsAllowSFX()
+    {
+        if (sound.allowSFX)
+        {
+            return true;
+        }
+        else return false;
+    }
     private void UpdtatePlayerPrefs()
     {
         //Get player prefs section
