@@ -61,9 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\08_Common\Singleton.cs" />
-    <Compile Include="Assets\Script\05_Mazing\MazingManager.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CrossLaneSpawner.cs" />
-    <Compile Include="Assets\Script\07_DigIt\DigItManager.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CrosslaneManager.cs" />
     <Compile Include="Assets\Script\08_Common\SettingSC.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CrosslaneCharSC.cs" />
@@ -71,17 +69,16 @@
     <Compile Include="Assets\Script\08_Common\CloudSC.cs" />
     <Compile Include="Assets\Script\08_Common\PauseSC.cs" />
     <Compile Include="Assets\Script\02_Running\JumpManager.cs" />
-    <Compile Include="Assets\Script\05_Mazing\MazingPlayerSC.cs" />
     <Compile Include="Assets\Script\08_Common\SoundSC.cs" />
     <Compile Include="Assets\Script\03_PopFruits\PopFruitsManager.cs" />
     <Compile Include="Assets\Script\06_CrossLane\CarSC.cs" />
     <Compile Include="Assets\Script\02_Running\JumpDinoSC.cs" />
     <Compile Include="Assets\Script\00_Loading\LoadSC.cs" />
     <Compile Include="Assets\Script\03_PopFruits\SpawnerSC.cs" />
-    <Compile Include="Assets\Script\04_Utopia\DeadlineSC.cs" />
     <Compile Include="Assets\Script\04_Utopia\UtopiaCharSC.cs" />
     <Compile Include="Assets\Script\04_Utopia\UtopiaManager.cs" />
     <Compile Include="Assets\Script\01_MainMenu\CreditPanelSC.cs" />
+    <Compile Include="Assets\Script\04_Utopia\StepholderSC.cs" />
     <Compile Include="Assets\Script\08_Common\SceneSC.cs" />
     <Compile Include="Assets\Script\03_PopFruits\FruitsSC.cs" />
     <Compile Include="Assets\Script\01_MainMenu\PlayerRegisSC.cs" />
