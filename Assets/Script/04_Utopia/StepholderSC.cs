@@ -40,7 +40,6 @@ public class StepholderSC : MonoBehaviour
     }
     IEnumerator CountToDead()
     {
-        print("in count to dead step");
         yield return new WaitForSeconds(8);
         Destroy(gameObject);
         StartCoroutine(CountToDead());
