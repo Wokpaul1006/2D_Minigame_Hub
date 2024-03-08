@@ -10,7 +10,7 @@ public class LoadSC : MonoBehaviour
     [SerializeField] Text loadProgress;
 
     [Header("Variables")]
-    private float loadSpd = 0.001f;
+    private float loadSpd;
     void Start()
     {
         SetupStart();
@@ -22,6 +22,7 @@ public class LoadSC : MonoBehaviour
     } 
     IEnumerator RunLoad()
     {
+        loadSpd = Random.Range(0.01f, 0.9f);
         if (loadSlide.value >= 1)
         {
             sceneMN.LoadScene(1, true);
