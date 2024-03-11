@@ -263,8 +263,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/Workplace/SDG.keystore
-  AndroidKeyaliasName: sardek games keystore
+  AndroidKeystoreName: D:/Workplace/userKey.keystore
+  AndroidKeyaliasName: sdgkay
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
