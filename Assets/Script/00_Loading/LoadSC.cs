@@ -9,6 +9,8 @@ public class LoadSC : MonoBehaviour
     [SerializeField] Slider loadSlide;
     [SerializeField] Text loadProgress;
 
+    [SerializeField] Text loadTips;
+
     [Header("Variables")]
     private float loadSpd;
     void Start()
@@ -16,10 +18,10 @@ public class LoadSC : MonoBehaviour
         SetupStart();
         StartCoroutine(RunLoad());
     }
-    void SetupStart() 
+    void SetupStart()
     {
         loadSlide.value = 0;
-    } 
+    }
     IEnumerator RunLoad()
     {
         loadSpd = Random.Range(0.01f, 0.9f);
@@ -28,8 +30,15 @@ public class LoadSC : MonoBehaviour
             sceneMN.LoadScene(1, true);
         }
         yield return new WaitForSeconds(0.1f);
-        loadSlide.value += loadSpd * Time.deltaTime *10;
-        loadProgress.text = (loadSlide.value*100) + "%";
+        loadSlide.value += loadSpd * Time.deltaTime * 10;
+        loadProgress.text = (loadSlide.value * 100) + "%";
+        UpdateTips(loadSlide.value);
         StartCoroutine(RunLoad());
+    }
+
+    private void UpdateTips(float value)
+    {
+        if (value <= 0.5f) loadTips.text = "Checking Player";
+        else if (value > 0.5f && value <= 1) loadTips.text = "Entering Game";
     }
 }
