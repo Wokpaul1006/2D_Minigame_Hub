@@ -17,7 +17,7 @@ public class HomeSC : MonoBehaviour
     [SerializeField] GameObject regisPanel;
 
     //Common Zone
-    [SerializeField] Image playerAvt;
+    //[SerializeField] Image playerAvt;
     [SerializeField] Text playerNameText;
     [SerializeField] Text totalScoreText;
     [SerializeField] Text highestLevelText;
@@ -34,7 +34,8 @@ public class HomeSC : MonoBehaviour
     }
     private void SettingStart()
     {
-        pause = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+        //pause = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
+
         listGamePanel.SetActive(true);
         butActionState = 0;
         menuSubState = 0;
@@ -117,15 +118,9 @@ public class HomeSC : MonoBehaviour
     public void ToJumpDino() => sceneMN.LoadScene(2, true);
     public void ToPopFruits() => sceneMN.LoadScene(3, true);
     public void ToUtopia() => sceneMN.LoadScene(4, true);
-    public void ToMazing()
-    {
-        //sceneMN.LoadScene(5, true);
-    }
-    public void ToCrosslane() => sceneMN.LoadScene(6, true);
-    public void ToDigIt()
-    {
-        //sceneMN.LoadScene(5, true);
-    }
+    public void ToCrosslane() => sceneMN.LoadScene(5, true);
+    public void ToCatDef() =>   sceneMN.LoadScene(6, true);
+    public void ToPenetrator() => sceneMN.LoadScene(7, true);
     public void ExitGame() => Application.Quit();
     #endregion
 

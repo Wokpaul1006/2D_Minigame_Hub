@@ -7,7 +7,6 @@ public class LoadSC : MonoBehaviour
 {
     [SerializeField] SceneSC sceneMN = new SceneSC();
     [SerializeField] Slider loadSlide;
-    [SerializeField] Text loadProgress;
 
     [SerializeField] Text loadTips;
 
@@ -31,7 +30,6 @@ public class LoadSC : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         loadSlide.value += loadSpd * Time.deltaTime * 10;
-        loadProgress.text = (loadSlide.value * 100) + "%";
         UpdateTips(loadSlide.value);
         StartCoroutine(RunLoad());
     }

@@ -27,13 +27,13 @@ public class SceneSC
                 SceneManager.LoadScene("04_Utopia");
                 break;
             case 5:
-                SceneManager.LoadScene("05_Mazing"); 
+                SceneManager.LoadScene("05_Cross"); 
                 break;
             case 6:
-                SceneManager.LoadScene("06_Cross");
+                SceneManager.LoadScene("06_CatDef");
                 break;
             case 7:
-                SceneManager.LoadScene("07_DigIt");
+                SceneManager.LoadScene("07_Penetrator");
                 break;
         }
     }
