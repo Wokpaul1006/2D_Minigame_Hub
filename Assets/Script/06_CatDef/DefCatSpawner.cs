@@ -60,4 +60,5 @@ public class DefCatSpawner : SpawnerSC
             }
         }
     }
+    private void OnMovement() { }
 }

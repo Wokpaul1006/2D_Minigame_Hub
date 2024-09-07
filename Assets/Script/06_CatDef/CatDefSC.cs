@@ -19,7 +19,7 @@ public class CatDefSC : MonoBehaviour
     private float detectRange;
     private float playerHP;
 
-    private bool isTakeDamage;
+    //private bool isTakeDamage;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class CatDefSC : MonoBehaviour
     private void SettingPlayerStat()
     {
         //those code under this line is development-only, once the game fully roll out, those stat equal PlayerPrefs stat except of comment ones
-        isTakeDamage = false; //This variable will not being override by PlayerPrefs
+        //isTakeDamage = false; //This variable will not being override by PlayerPrefs
         playerHP = 1;
 
         hpBar.fillAmount = playerHP;

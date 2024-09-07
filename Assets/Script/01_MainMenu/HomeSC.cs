@@ -10,10 +10,7 @@ public class HomeSC : MonoBehaviour
     [HideInInspector] PauseSC pause;
     [SerializeField] SceneSC sceneMN = new SceneSC();
     [SerializeField] List<GameObject> subPanel = new List<GameObject>();
-    [SerializeField] List<Sprite> actionButtonSprite = new List<Sprite>();
-    [SerializeField] GameObject listGamePanel;
     [SerializeField] GameObject menuPanel;
-    [SerializeField] GameObject buttonAction;
     [SerializeField] GameObject regisPanel;
 
     //Common Zone
@@ -25,20 +22,25 @@ public class HomeSC : MonoBehaviour
 
     [HideInInspector] int butActionState;
     //0 = show List game; 1 = show Menu
-    [HideInInspector] int menuSubState;
-    //3 = invisible; 0 = credits; 1 = option; 2 = information
+    [HideInInspector] sbyte menuSubState;
+    //-1 = invisible; 0 = actions; 1 = setting; 2 = achivement; 3 = patrolReward
     private void Start()
     {
         SettingStart();
         LoadUser();
     }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Debug.Log("in press escape");
+            HandlePanelVisible();
+        }
+    }
     private void SettingStart()
     {
-        //pause = GameObject.Find("CAN_Pause").GetComponent<PauseSC>();
-
-        listGamePanel.SetActive(true);
         butActionState = 0;
-        menuSubState = 0;
+        menuSubState = -1;
 
         CheckFirstPlay();
     }
@@ -61,56 +63,52 @@ public class HomeSC : MonoBehaviour
     private void LoadTotalScore() => totalScoreText.text = PlayerPrefs.GetInt("PTotalScore").ToString();
     private void LoadHighestLevel() => highestLevelText.text = PlayerPrefs.GetInt("PHighestLevel").ToString();
     private void LoadHighestScore() => highestScoreText.text = PlayerPrefs.GetInt("PHighestScore").ToString();
-    public void SwitchPanel() 
-    {
-        if(butActionState == 0)
-        {
-            //Case of show menu
-            butActionState = 1;
-            buttonAction.GetComponent<Image>().sprite = actionButtonSprite[1];
-
-            menuPanel.SetActive(true);
-            listGamePanel.SetActive(false);
-        }
-        else if(butActionState == 1) 
-        {
-            //Case of show list game
-            butActionState = 0;
-            buttonAction.GetComponent<Image>().sprite = actionButtonSprite[0];
-
-            menuPanel.SetActive(false);
-            listGamePanel.SetActive(true);
-        }
-    }
     #endregion
 
     #region Inside Menu Switch Panels
-    public void OnShowCredits()
+    public void OnShowActions()
     {
         menuSubState = 0;
         HandlePanelVisible();
     }
-    public void OnShowOption()
+    public void OnShowSetting()
     {
         menuSubState = 1;
         HandlePanelVisible();
     }
-    public void OnShowInfor()
+    public void OnShowAchiveMent()
     {
         menuSubState = 2;
         HandlePanelVisible();
     }
+    public void OnShowPatrolReward()
+    {
+        menuSubState = 3;
+        HandlePanelVisible();
+    }
     private void HandlePanelVisible()
     {
-        subPanel[menuSubState].SetActive(true);
-        for(int i = 0; i< menuSubState; i++) 
+        if(menuSubState != -1)
         {
-            if(i != menuSubState)
+            subPanel[menuSubState].SetActive(true);
+            for (int i = 0; i < menuSubState; i++)
+            {
+                if (i != menuSubState)
+                {
+                    subPanel[i].SetActive(false);
+                    butActionState = -1;
+                }
+            }
+        }else if(menuSubState == -1)
+        {
+            Debug.Log("in case close panel");
+            for(int i = 0; i < subPanel.Count; i++)
             {
                 subPanel[i].SetActive(false);
-                butActionState = 1;
+                menuSubState = -1;
             }
         }
+        
     }
     #endregion
 
@@ -119,7 +117,7 @@ public class HomeSC : MonoBehaviour
     public void ToPopFruits() => sceneMN.LoadScene(3, true);
     public void ToUtopia() => sceneMN.LoadScene(4, true);
     public void ToCrosslane() => sceneMN.LoadScene(5, true);
-    public void ToCatDef() =>   sceneMN.LoadScene(6, true);
+    public void ToCatDef() => sceneMN.LoadScene(6, true);
     public void ToPenetrator() => sceneMN.LoadScene(7, true);
     public void ExitGame() => Application.Quit();
     #endregion
@@ -143,4 +141,16 @@ public class HomeSC : MonoBehaviour
     }
     public void ClearPlayerPrefs() => PlayerPrefs.DeleteAll();
     #endregion
+
+    private void SetInverseButton(bool isEnable)
+    {
+        if(isEnable == true)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }

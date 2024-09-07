@@ -13,14 +13,29 @@ EditorBuildSettings:
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/02_Jump.unity
-    guid: 0d5e09e76ce6ff148bf304be0d3d4587
+    guid: 8415b7d87ed677d48b03c63e01fd11f7
   - enabled: 1
-    path: Assets/Scenes/03_Pop.unity
-    guid: ab9954301d442ec478f7f40b7ea0c4ca
+    path: Assets/Scenes/03_PopFruits.unity
+    guid: 5eeb31907dd61ae4aaa79e8dbe248933
   - enabled: 1
     path: Assets/Scenes/04_Utopia.unity
+    guid: 96d3459993ddc124996b0214045e0eb8
+  - enabled: 1
+    path: Assets/Scenes/05_Cross.unity
+    guid: 249b9010affa7cd4b82a753a4f9bba66
+  - enabled: 1
+    path: Assets/Scenes/06_Utopia.unity
     guid: daab149d81a5e774cbc0069a591a285e
   - enabled: 1
-    path: Assets/Scenes/06_Cross.unity
-    guid: 4c4d69d1eade7f748a758dd9ca943ef0
+    path: Assets/Scenes/07_CatDef.unity
+    guid: 2a2d1b0ba68334b4e94d860038a43725
+  - enabled: 1
+    path: Assets/Scenes/08_Eng.unity
+    guid: 2d45407ba225e454b8f2d73886c95633
+  - enabled: 1
+    path: Assets/Scenes/09_CatPenetrator.unity
+    guid: 22657d4f839114146bee77e4387dbf60
+  - enabled: 1
+    path: Assets/Scenes/10_CatWonder.unity
+    guid: 66347b8536c4a794c82c6beec56934da
   m_configObjects: {}
