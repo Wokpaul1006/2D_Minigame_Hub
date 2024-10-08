@@ -36,7 +36,9 @@ public class LoadSC : MonoBehaviour
 
     private void UpdateTips(float value)
     {
-        if (value <= 0.5f) loadTips.text = "Checking Player";
-        else if (value > 0.5f && value <= 1) loadTips.text = "Entering Game";
+        if (value <= 0.25f) loadTips.text = "Loading...";
+        else if (value <= 0.5f && value > 0.25f) loadTips.text = "Reading player info...";
+        else if (value > 0.5f && value < 0.75f) loadTips.text = "Seat tight...";
+        else if (value >= 0.75f && value <= 1) loadTips.text = "Entering Game";
     }
 }
