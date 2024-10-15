@@ -12,7 +12,7 @@ public class AdsInit : MonoBehaviour, IUnityAdsInitializationListener
 
     void Awake()
     {
-        //InitializeAds();
+        InitializeAds();
     }
     public void InitializeAds()
     {

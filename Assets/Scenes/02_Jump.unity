@@ -1239,9 +1239,9 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 6589732129313520824, guid: b8b67db97eda8264a834cc8a4fca8c28, type: 2}
+  - key: {fileID: 5200420727510351558, guid: b8b67db97eda8264a834cc8a4fca8c28, type: 2}
     value: {fileID: 96815752}
-  - key: {fileID: 8610070114823267550, guid: b8b67db97eda8264a834cc8a4fca8c28, type: 2}
+  - key: {fileID: -8459631587280357565, guid: b8b67db97eda8264a834cc8a4fca8c28, type: 2}
     value: {fileID: 787970371}
   m_ExposedReferences:
     m_References: []
@@ -2179,7 +2179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 06ec5db90b3be3846bb8d615bdebfa3f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba3496f10456a9943ba15889dbec9ab1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
