@@ -16,7 +16,8 @@ public class HomeSC : MonoBehaviour
     //Common Zone
     //[SerializeField] Image playerAvt;
     [SerializeField] Text playerNameText;
-    [SerializeField] Text totalScoreText;
+    [SerializeField] Text pPCurrency;
+    [SerializeField] Text playerDiamond;
     [SerializeField] Text highestLevelText;
     [SerializeField] Text highestScoreText;
 
@@ -53,14 +54,16 @@ public class HomeSC : MonoBehaviour
         LoadName();
         LoadHighestScore();
         LoadHighestLevel();
-        LoadTotalScore();
+        LoadCurrency();
+        LoadDiamond();
     }
     private void LoadAvatar()
     {
         //Load PlayerPrefs for this
     }
     private void LoadName() => playerNameText.text = PlayerPrefs.GetString("PName");
-    private void LoadTotalScore() => totalScoreText.text = PlayerPrefs.GetInt("PTotalScore").ToString();
+    private void LoadCurrency() => pPCurrency.text = PlayerPrefs.GetInt("PTotalScore").ToString();
+    private void LoadDiamond() => playerDiamond.text = PlayerPrefs.GetInt("PTotalDiamond").ToString();
     private void LoadHighestLevel() => highestLevelText.text = PlayerPrefs.GetInt("PHighestLevel").ToString();
     private void LoadHighestScore() => highestScoreText.text = PlayerPrefs.GetInt("PHighestScore").ToString();
     #endregion

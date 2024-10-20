@@ -6,7 +6,7 @@ using UnityEngine.Advertisements;
 public class AdsInit : MonoBehaviour, IUnityAdsInitializationListener
 {
     [SerializeField] string _androidGameId = "5706430";
-    [SerializeField] string _iOSGameId;
+    [SerializeField] string _iOSGameId = "5706431";
     [SerializeField] bool _testMode = false;
     private string _gameId;
 
@@ -26,12 +26,6 @@ public class AdsInit : MonoBehaviour, IUnityAdsInitializationListener
             Advertisement.Initialize(_gameId, _testMode, this);
         }
     }
-    public void OnInitializationComplete()
-    {
-        Debug.Log("Unity Ads initialization complete.");
-    }
-    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
-    {
-        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
-    }
+    public void OnInitializationComplete() => Debug.Log("Unity Ads initialization complete.");
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message) => Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
 }

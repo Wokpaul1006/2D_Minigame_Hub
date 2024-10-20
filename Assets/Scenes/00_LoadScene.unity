@@ -1343,7 +1343,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1593601783}
   - component: {fileID: 1593601784}
-  - component: {fileID: 1593601785}
   m_Layer: 0
   m_Name: LoadManager
   m_TagString: Untagged
@@ -1380,21 +1379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadSlide: {fileID: 1814955168}
   loadTips: {fileID: 1319715845}
---- !u!114 &1593601785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593601780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e0febe1b56ebe41a37664b14179e03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _androidGameId: 5706430
-  _iOSGameId: 
-  _testMode: 0
 --- !u!1 &1672708675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,7 +1674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
       propertyPath: m_Text
-      value: SDG MINIGAME HUB
+      value: SADEKSOFT HUB
       objectReference: {fileID: 0}
     - target: {fileID: 2515785480219751215, guid: b5dd94fbbaa864f47b47892cbe425e5a, type: 3}
       propertyPath: m_FontData.m_MaxSize

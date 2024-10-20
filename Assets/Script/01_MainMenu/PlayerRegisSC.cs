@@ -35,10 +35,11 @@ public class PlayerRegisSC : MonoBehaviour
     }
     private void SettingNewPlayer()
     {
-        PlayerPrefs.SetInt("HasPlayed", 1);
-        PlayerPrefs.SetInt("PTotalScore", 0);
-        PlayerPrefs.SetInt("PHighestScore", 0);
-        PlayerPrefs.SetInt("PHighestLevel", 0);
+        PlayerPrefs.SetInt("HasPlayed", 1); //is old player
+        PlayerPrefs.SetInt("PTotalScore", 0); //Total score reach/currency
+        PlayerPrefs.SetInt("PTotalDiamond", 0); //Diamond
+        PlayerPrefs.SetInt("PHighestScore", 0); //Player new score
+        PlayerPrefs.SetInt("PHighestLevel", 0); //Player new level
         PlayerPrefs.SetInt("soundState", 1);
         PlayerPrefs.SetInt("sfxState", 1);
         homeSC.LoadUser();

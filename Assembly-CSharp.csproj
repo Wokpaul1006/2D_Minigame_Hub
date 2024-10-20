@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\00_Loading\LoadSC.cs" />
     <Compile Include="Assets\Script\Common\SoundSC.cs" />
     <Compile Include="Assets\Script\Common\SceneSC.cs" />
+    <Compile Include="Assets\Script\Unity Ads\AdsMN.cs" />
     <Compile Include="Assets\Script\03_PopFruits\SpawnerSC.cs" />
     <Compile Include="Assets\Script\05_CrossLane\CarSC.cs" />
     <Compile Include="Assets\Script\06_CatDef\CatDefMN.cs" />

@@ -40,6 +40,7 @@ public class AdsBanner : MonoBehaviour
         // Load the Ad Unit with banner content:
         Advertisement.Banner.Load(_adUnitId, options);
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        Advertisement.Banner.Show("smartBannerPlacementId");
     }
 
     void OnBannerLoaded()
